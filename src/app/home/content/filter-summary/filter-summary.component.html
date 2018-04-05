@@ -1,0 +1,10 @@
+<div class="filter-summary">
+  <div class="filter">
+    <div 
+      *ngFor="let filter of filters$ | async" 
+      class="option"
+      (click)="removeFilter(filter)">{{ filter.name }}
+    </div>
+  </div>
+</div>
+
