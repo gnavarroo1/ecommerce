@@ -2,7 +2,7 @@ import { Category } from './category';
 import { Terms } from './terms';
 
 export class Product {
-    id: string;
+    id: number;
     name: string;
     description: string;
     categoryId: Category;
@@ -10,4 +10,5 @@ export class Product {
     price: number;
     terms: Terms;
     available: boolean;
+    image: string;
 }
