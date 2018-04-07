@@ -5,6 +5,8 @@ import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
 import {Product} from '../core/models/product';
 import {Category} from '../core/models/category';
+import { getProducts, getCategories } from './../product/reducers/selector';
+import { ProductActions } from './../product/actions/product-actions';
 
 @Component({
   selector: 'app-home',
@@ -15,12 +17,12 @@ export class HomeComponent implements OnInit {
   products$: Observable<any>;
   categories$: Observable<any>;
   selectedCategoryIds$: Observable<number[]>;
-  constructor(private store: Store<AppState>) {
-    // this.store.dispatch(this.actions.getAllProducts());
-    // this.store.dispatch(this.actions.getAllCategories());
-    // this.products$ = this.store.select(getProducts);
-    // this.categories$ = this.store.select(getCategories);
-    // this.selectedCategoryIds$ = this.store.select(getSelectedCategoryIds);
+  constructor(private store: Store<AppState>, private actions: ProductActions) {
+    this.store.dispatch(this.actions.getAllProducts());
+    this.store.dispatch(this.actions.getAllCategories());
+    this.products$ = this.store.select(getProducts);
+    this.categories$ = this.store.select(getCategories);
+    this.selectedCategoryIds$ = this.store.select(getSelectedCategoryIds);
   }
   ngOnInit() {
   }

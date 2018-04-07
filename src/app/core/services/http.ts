@@ -9,7 +9,7 @@ import {
   Headers,
   Request
 } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
 import { environment } from './../../../environments/environment';
 import { Subject } from 'rxjs/Subject';
 
@@ -147,7 +147,8 @@ export class HttpService extends Http {
    * @returns {string}
    */
   private getFullUrl(url: string): string {
-    return environment.API_ENDPOINT + url;
+    //return environment.API_ENDPOINT + url;
+    return url;
   }
 
   /**

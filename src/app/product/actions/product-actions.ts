@@ -22,7 +22,7 @@ export class ProductActions {
         };
     }
 
-    getAllProductsSuccess(products: Product[]) {
+    getAllProductsSuccess(products: any) {
         return {
             type: ProductActions.GET_ALL_PRODUCTS_SUCCESS,
             payload: products
@@ -44,7 +44,7 @@ export class ProductActions {
         return { type: ProductActions.GET_ALL_CATEGORIES };
     }
 
-    getAllCategoriesSuccess(categories: Category[]) {
+    getAllCategoriesSuccess(categories: any) {
         return {
             type: ProductActions.GET_ALL_CATEGORIES_SUCCESS,
             payload: categories

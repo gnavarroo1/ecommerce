@@ -1,44 +1,74 @@
+import { EffectsModule } from '@ngrx/effects';
+import { environment } from './../environments/environment.prod';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
+import { RouterModule, PreloadAllModules } from '@angular/router';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
-
+// Components
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './layout/header/header.component';
-import { HomeComponent } from './home/home.component';
-import { ProductComponent } from './product/product.component';
-import { SidebarComponent } from './home/sidebar/sidebar.component';
-import { BreadcrumbComponent } from './home/breadcrumb/breadcrumb.component';
-import { ContentHeaderComponent } from './home/content/content-header/content-header.component';
-import { ProductListComponent } from './home/content/product-list/product-list.component';
-import { ProductListItemComponent } from './home/content/product-list/product-list-item/product-list-item.component';
-import { FilterSummaryComponent } from './home/content/filter-summary/filter-summary.component';
-import { ProductDetailPageComponent } from './product/components/product-detail-page/product-detail-page.component';
-import { ProductDescriptionComponent } from './product/components/product-detail-page/product-description/product-description.component';
-import { ProductDetailsComponent } from './product/components/product-detail-page/product-details/product-details.component';
-import { ProductImagesComponent } from './product/components/product-detail-page/product-images/product-images.component';
-import { ProductPriceInfoComponent } from './product/components/product-detail-page/product-price-info/product-price-info.component';
+// Routes
+import { routes } from './app.routes';
+// Modules
+import { SharedModule } from './shared/index';
+// import { UserModule } from './user/index';
+import { HomeModule } from './home/index';
+import { LayoutModule } from './layout/index';
+import { CoreModule } from './core/index';
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from './app.reducers';
+// import { CheckoutHeaderComponent } from './layout/checkout-header/checkout-header.component';
+// import { CheckoutFooterComponent } from './layout/checkout-footer/checkout-footer.component';
 
+// adding rx operators
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/finally';
+import 'rxjs/add/observable/of';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
-    HomeComponent,
-    ProductComponent,
-    SidebarComponent,
-    BreadcrumbComponent,
-    ContentHeaderComponent,
-    ProductListComponent,
-    ProductListItemComponent,
-    FilterSummaryComponent,
-    ProductDetailPageComponent,
-    ProductDescriptionComponent,
-    ProductDetailsComponent,
-    ProductImagesComponent,
-    ProductPriceInfoComponent
+    // CheckoutHeaderComponent,
+    // CheckoutFooterComponent
   ],
   imports: [
-    BrowserModule
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
+    StoreModule.forRoot(reducers, { metaReducers }),
+
+    /**
+     * Store devtools instrument the store retaining past versions of state
+     * and recalculating new states. This enables powerful time-travel
+     * debugging.
+     *
+     * To use the debugger, install the Redux Devtools extension for either
+     * Chrome or Firefox
+     *
+     * See: https://github.com/zalmoxisus/redux-devtools-extension
+     */
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+
+    /**
+     * EffectsModule.forRoot() is imported once in the root module and
+     * sets up the effects class to be initialized immediately when the
+     * application starts.
+     *
+     * See: https://github.com/ngrx/platform/blob/master/docs/effects/api.md#forroot
+     */
+    EffectsModule.forRoot([]),
+
+    BrowserModule,
+    FormsModule,
+    HttpModule,
+    HomeModule,
+    LayoutModule,
+    CoreModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]

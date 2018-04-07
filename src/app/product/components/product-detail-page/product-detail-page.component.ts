@@ -3,12 +3,12 @@ import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from './../../../core/models/product';
-//import { ProductService } from './../../../core/services/product.service';
+import { ProductService } from './../../../core/services/product.service';
 
 @Component({
   selector: 'app-product-detail-page',
   templateUrl: './product-detail-page.component.html',
-  styleUrls: ['./product-detail-page.component.css']
+  styleUrls: ['./product-detail-page.component.scss']
 })
 export class ProductDetailPageComponent implements OnInit {
   actionsSubscription: Subscription;
