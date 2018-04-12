@@ -1,4 +1,4 @@
-import { Component, OnInit, NgModule } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 @Component({
@@ -9,6 +9,7 @@ import { Observable } from 'rxjs/Observable';
 
 export class AppNavbarComponent implements OnInit {
   isAuthenticated: Observable<boolean>;
+  categories$: Observable<any>
   categoryList = [{
     'id': 1,
     'nombre': 'Cereales'
@@ -34,6 +35,7 @@ export class AppNavbarComponent implements OnInit {
     'nombre': 'Oleoginoza'
   }];
   constructor(private router: Router) {
+    
   }
 
   ngOnInit() {

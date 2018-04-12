@@ -12,13 +12,13 @@ import {
 import {
   Observable
 } from 'rxjs/Observable';
-// import 'rxjs/add/observable/of';
+
 import {
   Component,
   OnInit,
   OnChanges
 } from '@angular/core';
-// import { Product } from '../core/models/product';
+import { Product } from '../core/models/product';
 import 'rxjs/add/observable/of';
 @Component({
   selector: 'app-home',

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 // Components
 import {AppNavbarComponent} from './app-navbar.component';
 import { ProfileDropdownComponent } from './profile-dropdown/profile-dropdown.component';
@@ -22,7 +22,6 @@ import { SharedModule } from '../shared/index';
   ],
   imports: [
     RouterModule,
-    CommonModule,
     SharedModule
   ]
 })

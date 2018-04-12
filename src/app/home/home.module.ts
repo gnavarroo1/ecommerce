@@ -2,7 +2,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { SharedModule } from '../shared/index';
 // Components
 import { HomeComponent } from './home.component';
@@ -42,7 +42,6 @@ import { FilterPipe } from './content/product-list/product-list.pipe';
   ],
   imports: [
     RouterModule.forChild(routes),
-    CommonModule,
     SharedModule
   ],
   providers: [
