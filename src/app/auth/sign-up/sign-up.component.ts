@@ -56,7 +56,8 @@ export class SignUpComponent implements OnInit, OnDestroy {
     const values = this.signUpForm.value;
     const keys = Object.keys(values);
     this.formSubmit = true;
-
+    console.log(values);
+    console.log(this.signUpForm);
     if (this.signUpForm.valid) {
       this.registerSubs = this.userService.create(values).subscribe(data => {
         const errors = data.status;
@@ -102,8 +103,8 @@ export class SignUpComponent implements OnInit, OnDestroy {
       'apellidos':[apellidos,Validators.compose([Validators.required, Validators.pattern('[A-Za-z\s]+')])],
       'password': [password, Validators.compose([Validators.required, Validators.minLength(6)])],
       'password_confirmation': [password_confirmation, Validators.compose([Validators.required, Validators.minLength(6)])],
-      'dni': [dni, Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(8), Validators.pattern('[0-9]{8}')])],
-      'pais':[pais,Validators.compose([Validators.required, Validators.pattern('[A-Za-z\s]+')])],
+      'dni': [dni, Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(8), Validators.pattern('[0-9]{8}')])]
+      // 'pais':[pais,Validators.compose([Validators.required, Validators.pattern('[A-Za-z\s]+')])],
     }, {
       validator: this.matchingPasswords('password', 'password_confirmation')
     });
