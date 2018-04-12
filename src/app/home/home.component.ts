@@ -28,11 +28,11 @@ import 'rxjs/add/observable/of';
   template: `
     <div class="col-xs-12">
       <div class="col-xs-3">
-        <app-categories [categories]="categories$.value"></app-categories>
+        <app-categories [categories]="categories$"></app-categories>
       </div>
       <div class="col-xs-9">
         <app-content
-          [products]="products$.value"
+          [products]="products$"
           [categoryIds]="selectedCategoriesIds$ ">
         </app-content>
       </div>
@@ -40,7 +40,7 @@ import 'rxjs/add/observable/of';
   `,
   styleUrls: ['./home.component.scss']
 })
-//<app-breadcrumb [categories]="categories$.value"></app-breadcrumb>
+// <app-breadcrumb [categories]="categories$.value"></app-breadcrumb>
 export class HomeComponent implements OnInit {
   products$: Observable < any > ;
   categories$: Observable < any > ;
@@ -74,17 +74,17 @@ export class HomeComponent implements OnInit {
   // };
   constructor(private productService: ProductService) {
     // Get all products for the product list component
-    
+
     this.productService.getAllProducts().subscribe(res => {
       console.log(res);
       this.products$ = Observable.of(res.data.products);
-      console.log("product" + this.products$);
+      console.log('product' + this.products$);
     });
 
     this.productService.getAllCategories().subscribe(res => {
       console.log(res);
       this.categories$ = Observable.of(res.data);
-      console.log("categoria" + this.categories$);
+      console.log('categoria' + this.categories$);
     });
     // this.selectedTaxonIds$ = this.store.select(getSelectedTaxonIds);
   }

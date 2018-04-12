@@ -35,7 +35,7 @@ import {
 export class SignUpComponent implements OnInit, OnDestroy {
   signUpForm: FormGroup;
   formSubmit = false;
-  // title = environment.AppName;
+  title = 'Ecommerce';
   registerSubs: Subscription;
 
   constructor(
@@ -128,15 +128,15 @@ export class SignUpComponent implements OnInit, OnDestroy {
     return (group: FormGroup): {
       [key: string]: any
     } => {
-      let password = group.controls[passwordKey];
-      let confirmPassword = group.controls[confirmPasswordKey];
+      const password = group.controls[passwordKey];
+      const confirmPassword = group.controls[confirmPasswordKey];
 
       if (password.value !== confirmPassword.value) {
         return {
           mismatchedPasswords: true
         };
       }
-    }
+    };
   }
 
 

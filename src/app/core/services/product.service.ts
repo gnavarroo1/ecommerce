@@ -1,11 +1,11 @@
 import {
   Injectable
-} from "@angular/core";
+} from '@angular/core';
 import {
   HttpClient,
   HttpErrorResponse,
   HttpParams
-} from "@angular/common/http";
+} from '@angular/common/http';
 import {
   Observable
 } from 'rxjs/Observable';
@@ -14,33 +14,33 @@ import {
 } from 'rxjs/operators';
 import {
   environment
-} from "./../../../environments/environment";
+} from './../../../environments/environment';
 
 @Injectable()
 export class ProductService {
   constructor(private httpClient: HttpClient) {}
 
-  getAllProducts() : Observable<any>{
+  getAllProducts(): Observable<any> {
     return this.httpClient
-      .get(environment.api + "getAllProducts")
+      .get(environment.api + 'getAllProducts')
       .map(res => {
         if (res) {
         }
-        return res;})
+        return res; });
   }
 
   getAllCategories(): Observable<any> {
     return this.httpClient
-      .get(environment.api + "listCategories",{})
+      .get(environment.api + 'listCategories', {})
       .map(res => {
         if (res) {
         }
-        return res;})
+        return res; });
   }
 
   getProducts() {
     return this.httpClient
-      .get(environment.api + "getAllProducts", {
+      .get(environment.api + 'getAllProducts', {
         observe: 'response'
       })
       .pipe(

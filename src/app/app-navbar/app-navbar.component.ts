@@ -11,7 +11,7 @@ import { AuthService } from '../core/services/auth.service';
 
 export class AppNavbarComponent implements OnInit {
   isAuthenticated: Observable<boolean>;
-  categories$: Observable<any>
+  categories$: Observable<any>;
   categoryList = [{
     'id': 1,
     'nombre': 'Cereales'
@@ -36,8 +36,8 @@ export class AppNavbarComponent implements OnInit {
     'id': 6,
     'nombre': 'Oleoginoza'
   }];
-  constructor(private authService: AuthService,private router: Router) {
-    
+  constructor(private authService: AuthService, private router: Router) {
+
   }
 
   ngOnInit() {
