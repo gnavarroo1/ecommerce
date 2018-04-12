@@ -1,3 +1,14 @@
-<p>
-  content-header works!
-</p>
+<div class="content">
+  <div itemprop="name" class="queried-for">
+    <h4 title="men casual shirts" class="q">Displaying available products</h4>
+    <span>&nbsp;</span>
+  </div>
+
+  <div class="options">
+    <ul class="img-size">
+      <label>View:</label>
+      <li (click)="toggleView('COMPACT')" [ngClass]="{'big': true, 'selected': isBigSelected()}"></li>
+      <li (click)="toggleView('COZY')" [ngClass]="{'small': true, 'selected': isSmallSelected()}"></li>
+    </ul>
+  </div>
+</div>

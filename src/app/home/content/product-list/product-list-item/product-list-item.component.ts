@@ -1,15 +1,22 @@
+// import { environment } from './../../../../../environments/environment';
+
 import { Component, OnInit, Input } from '@angular/core';
+import { Product } from '../../../../core/models/product';
 
 @Component({
   selector: 'app-product-list-item',
   templateUrl: './product-list-item.component.html',
-  styleUrls: ['./product-list-item.component.css']
+  styleUrls: ['./product-list-item.component.scss']
 })
 export class ProductListItemComponent implements OnInit {
-  @Input() product: any;
+  @Input() product: Product;
+
   constructor() { }
 
   ngOnInit() {
   }
 
+  getProductImageUrl(url) {
+    return undefined;
+  }
 }

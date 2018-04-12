@@ -1,9 +1,0 @@
-.product-tile {
-    margin: 10px;
-    border: solid 1px gray;
-  }
-  .product-tile img {
-    object-fit: cover;
-    width: 100%;
-  }
-  
