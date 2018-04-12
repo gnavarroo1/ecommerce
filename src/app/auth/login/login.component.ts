@@ -1,11 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-// import { environment } from '../../../../environments/environment';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-// import { AuthService } from '../../../core/services/auth.service';
+import { AuthService } from '../../core/services/auth.service';
 import { Store } from '@ngrx/store';
-// import { AppState } from '../../../interfaces';
 import { Router, ActivatedRoute } from '@angular/router';
-// import { getAuthStatus } from '../../reducers/selectors';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
@@ -15,16 +12,15 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   signInForm: FormGroup;
-  // title = environment.AppName;
   loginSubs: Subscription;
   returnUrl: string;
-
+  isLoggedIn: boolean;
   constructor(
     private fb: FormBuilder,
     // private store: Store<AppState>,
     private route: ActivatedRoute,
     private router: Router,
-    // private authService: AuthService
+    private authService: AuthService
   ) {
     this.redirectIfUserLoggedIn();
   }
@@ -40,14 +36,18 @@ export class LoginComponent implements OnInit, OnDestroy {
     const keys = Object.keys(values);
 
     if (this.signInForm.valid) {
-      // this.loginSubs = this.authService.login(values).subscribe(data => {
-      //   const error = data.error;
-      //   if (error) {
-      //     keys.forEach(val => {
-      //       this.pushErrorFor(val, error);
-      //     });
-      //   }
-      // });
+      this.loginSubs = this.authService.loginUser(values.email,values.password).subscribe(data => {
+        const error = data.status;
+        const msg = data.message;
+        if (error!== 200) {
+          keys.forEach(val => {
+            this.pushErrorFor(val, msg);
+          });
+        }else{
+          this.isLoggedIn = true;
+          this.router.navigate([this.returnUrl]);
+        }
+      });
     } else {
       keys.forEach(val => {
         const ctrl = this.signInForm.controls[val];
@@ -79,6 +79,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     //     if (data === true) { this.router.navigate([this.returnUrl]); }
     //   }
     // );
+    if(this.isLoggedIn)
+    { this.router.navigate([this.returnUrl]); }
   }
 
   ngOnDestroy() {

@@ -22,6 +22,7 @@ import { FilterComponent } from './sidebar/filters/filters.component';
 import { HomeRoutes as routes } from './home.routes';
 // Pipe
 import { FilterPipe } from './content/product-list/product-list.pipe';
+//Services
 
 @NgModule({
   declarations: [

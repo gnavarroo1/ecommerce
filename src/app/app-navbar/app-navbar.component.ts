@@ -1,6 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import { AuthService } from '../core/services/auth.service';
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './app-navbar.component.html',
@@ -34,13 +36,12 @@ export class AppNavbarComponent implements OnInit {
     'id': 6,
     'nombre': 'Oleoginoza'
   }];
-  constructor(private router: Router) {
+  constructor(private authService: AuthService,private router: Router) {
     
   }
 
   ngOnInit() {
-    this.isAuthenticated = Observable.of(false);
-    console.log(this.isAuthenticated);
+    this.authService.currentStatus.subscribe(res => this.isAuthenticated =  Observable.of(res));
   }
 
   selectCategory(category) {

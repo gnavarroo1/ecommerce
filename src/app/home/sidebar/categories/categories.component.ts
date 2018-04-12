@@ -31,10 +31,12 @@ export class CategoriesComponent implements OnInit {
   }
 
   categorySelected(category, checked) {
+    category.isChecked= checked
     if (checked) {
-        console.log('is checked');
+      this.selectedFilters.push(category)
     } else {
-        console.log('is unchecked');
+      var index = this.selectedFilters.indexOf(category);
+      this.selectedFilters.splice(index,1);
     }
   }
 }

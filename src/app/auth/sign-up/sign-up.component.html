@@ -13,9 +13,10 @@
                 <span class="register-fb-logo register-sprite"></span>
                 FACEBOOK
               </button>
-              <button class="register-google register-button coming-soon" id="gPlusLogin"><span class="register-gplus-logo register-sprite"></span>
-                  GOOGLE
-                </button>
+              <button class="register-google register-button coming-soon" id="gPlusLogin">
+                <span class="register-gplus-logo register-sprite"></span>
+                GOOGLE
+              </button>
             </div>
           </div>
           <p class="register-button-info-text register-info-text">- OR USING EMAIL -</p>
@@ -30,7 +31,22 @@
                   <p class="register-error-message">{{signUpForm.get('email').errors.msg || 'Please enter a valid email id'}}</p>
                 </div>
               </div>
-
+              <div class="register-input-item">
+                <input type="email" class="register-user-input-email register-user-input" name="nombre" formControlName="nombre" placeholder="Nombres"
+                  autocomplete="off">
+                <div *ngIf="signUpForm.get('nombre').errors && signUpForm.get('nombre').touched">
+                  <span class="register-error-icon">!</span>
+                  <p class="register-error-message">{{signUpForm.get('nombre').errors.msg || 'Ingrese caracteres validos'}}</p>
+                </div>
+              </div>
+              <div class="register-input-item">
+                <input type="email" class="register-user-input-email register-user-input" name="apellidos" formControlName="apellidos" placeholder="Apellidos"
+                  autocomplete="off">
+                <div *ngIf="signUpForm.get('apellidos').errors && signUpForm.get('apellidos').touched">
+                  <span class="register-error-icon">!</span>
+                  <p class="register-error-message">{{signUpForm.get('apellidos').errors.msg ||  'Ingrese caracteres validos'}}</p>
+                </div>
+              </div>
               <div class="register-input-item">
                 <input type="password" class="register-user-input-password register-user-input" name="password" formControlName="password"
                   placeholder="Choose Password" autocomplete="off">
@@ -48,6 +64,14 @@
                   <p class="register-error-message">{{ 'Password must match'}}</p>
                 </div>
               </div>
+              <div class="register-input-item">
+                <input type="number" class="register-user-input-mobile register-user-input" name="dni" formControlName="dni" placeholder="Nro. DNI">
+                <div *ngIf="signUpForm.get('dni').errors && signUpForm.get('dni').touched">
+                  <span class="register-error-icon">!</span>
+                  <p class="register-error-message">{{signUpForm.get('dni').errors.msg || 'Por favor ingrese un numero de DNI valido (8 digitos)'}}</p>
+                </div>
+              </div>
+              
             </fieldset>
             <fieldset class="register-register-button-container">
               <button class="btn btn-danger register-register-button">REGISTER</button>

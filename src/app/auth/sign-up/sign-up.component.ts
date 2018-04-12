@@ -1,12 +1,31 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import {
+  Component,
+  OnInit,
+  OnDestroy
+} from '@angular/core';
+import {
+  FormGroup,
+  FormBuilder,
+  Validators
+} from '@angular/forms';
 // import { environment } from '../../../../environments/environment';
-import { Store } from '@ngrx/store';
+import {
+  Store
+} from '@ngrx/store';
 // import { AppState } from '../../../interfaces';
-import { Router } from '@angular/router';
-// import { AuthService } from '../../../core/services/auth.service';
+import {
+  Router
+} from '@angular/router';
+import {
+  UserService
+} from '../../core/services/user.service';
+import {
+  AuthService
+} from '../../core/services/auth.service';
 // import { getAuthStatus } from '../../reducers/selectors';
-import { Subscription } from 'rxjs/Subscription';
+import {
+  Subscription
+} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-sign-up',
@@ -23,7 +42,8 @@ export class SignUpComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     // private store: Store<AppState>,
     private router: Router,
-    // private authService: AuthService
+    private authService: AuthService,
+    private userService: UserService
   ) {
     this.redirectIfUserLoggedIn();
   }
@@ -38,14 +58,16 @@ export class SignUpComponent implements OnInit, OnDestroy {
     this.formSubmit = true;
 
     if (this.signUpForm.valid) {
-      // this.registerSubs = this.authService.register(values).subscribe(data => {
-      //   const errors = data.errors;
-      //   if (errors) {
-      //     keys.forEach(val => {
-      //       if (errors[val]) { this.pushErrorFor(val, errors[val][0]); };
-      //     });
-      //   }
-      // });
+      this.registerSubs = this.userService.create(values).subscribe(data => {
+        const errors = data.status;
+        if (errors) {
+          keys.forEach(val => {
+            if (errors[val]) {
+              this.pushErrorFor(val, errors[val][0]);
+            };
+          });
+        }
+      });
     } else {
       keys.forEach(val => {
         const ctrl = this.signUpForm.controls[val];
@@ -58,22 +80,33 @@ export class SignUpComponent implements OnInit, OnDestroy {
   }
 
   private pushErrorFor(ctrl_name: string, msg: string) {
-    this.signUpForm.controls[ctrl_name].setErrors({'msg': msg});
+    this.signUpForm.controls[ctrl_name].setErrors({
+      'msg': msg
+    });
   }
 
   initForm() {
     const email = '';
     const password = '';
     const password_confirmation = '';
+    const dni = '';
+    const nombre = '';
+    const apellidos = '';
+    const pais = '';
     // const mobile = '';
     // const gender = '';
 
-    this.signUpForm = this.fb.group({  
-	  'email': [email, Validators.compose([Validators.required, Validators.email]) ],
-      'password': [password, Validators.compose([Validators.required, Validators.minLength(6)]) ],
-      'password_confirmation': [password_confirmation, Validators.compose([Validators.required, Validators.minLength(6)]) ]
-    },{validator: this.matchingPasswords('password', 'password_confirmation')}
-	);
+    this.signUpForm = this.fb.group({
+      'email': [email, Validators.compose([Validators.required, Validators.email])],
+      'nombre':[nombre,Validators.compose([Validators.required, Validators.pattern('[A-Za-z\s]+')])],
+      'apellidos':[apellidos,Validators.compose([Validators.required, Validators.pattern('[A-Za-z\s]+')])],
+      'password': [password, Validators.compose([Validators.required, Validators.minLength(6)])],
+      'password_confirmation': [password_confirmation, Validators.compose([Validators.required, Validators.minLength(6)])],
+      'dni': [dni, Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(8), Validators.pattern('[0-9]{8}')])],
+      'pais':[pais,Validators.compose([Validators.required, Validators.pattern('[A-Za-z\s]+')])],
+    }, {
+      validator: this.matchingPasswords('password', 'password_confirmation')
+    });
   }
 
   redirectIfUserLoggedIn() {
@@ -85,22 +118,26 @@ export class SignUpComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.registerSubs) { this.registerSubs.unsubscribe(); }
-  }
-  
-  matchingPasswords(passwordKey: string, confirmPasswordKey: string) {
-  return (group: FormGroup): {[key: string]: any} => {
-    let password = group.controls[passwordKey];
-    let confirmPassword = group.controls[confirmPasswordKey];
-    
-    if (password.value !== confirmPassword.value) {
-      return {
-        mismatchedPasswords: true		
-      };
+    if (this.registerSubs) {
+      this.registerSubs.unsubscribe();
     }
   }
-}
 
-  
-  
+  matchingPasswords(passwordKey: string, confirmPasswordKey: string) {
+    return (group: FormGroup): {
+      [key: string]: any
+    } => {
+      let password = group.controls[passwordKey];
+      let confirmPassword = group.controls[confirmPasswordKey];
+
+      if (password.value !== confirmPassword.value) {
+        return {
+          mismatchedPasswords: true
+        };
+      }
+    }
+  }
+
+
+
 }
