@@ -19,7 +19,7 @@ export class ProductListComponent implements OnInit {
   ngOnInit() { }
 
   getProductImageUrl(url) {
-    return undefined;
+    return url;
   }
  
   getMargin() {
