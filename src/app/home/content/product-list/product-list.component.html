@@ -8,8 +8,8 @@
           <a itemprop="url" [routerLink]="['/product/', product.id]">
             <img itemprop="image"
               class="product-thumb"
-              alt="{{product.name}}" 
-              [src]="getProductImageUrl(product)">
+              [src]="getProductImageUrl(product.nombre)"
+              onerror="this.src='./assets/image-not-found.png'">
             <div class="product-productMetaInfo">
               <div itemprop="name" class="product-brand">{{ product.nombre }}</div>
               <h2 class="product-product">{{ product.description }}</h2>
@@ -18,17 +18,15 @@
                   <!-- Discounted price -->
                   <span itemprop="price" class="product-discountedPrice">$ {{ product.price }}</span>
                   <!-- Original price -->
-                  <!--<span class="product-strike"> react-text: 485 Rs.  /react-text  react-text: 486 1699 /react-text </span>-->
                 </span>
-                <!--Percentage off --><!--<span class="product-discountPercentage">(40% OFF)</span>-->
+                
               </div>
-              <!-- Product Size --><!--<div class="product-sizes">Sizes: S, M, L, XL, XXL</div>-->
             </div>
           </a>
           <div class="product-actions">
             <span class="product-actionsButton product-wishlist coming-soon">save</span>
-            <span class="product-actionsButton product-addToBag">
-              <span (click)="addToCart(product)">Add to bag</span>
+            <span class="product-actionsButton product-addToBag coming-soon">
+             Add to bag
             </span>
           </div>
         </li>

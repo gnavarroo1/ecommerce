@@ -1,0 +1,31 @@
+<ul class="nav navbar-nav navbar-right">
+  <li class="dropdown" id="false" dropdown *ngIf="!isAuthenticated">
+    <a class="dropdown-toggle" dropdownToggle>
+      <i class="fa fa-user" aria-hidden="true"></i>
+      <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu" *dropdownMenu>
+      <li><a [routerLink]="['/auth']">Sign Up</a></li>
+      <li role="separator" class="divider"></li>
+      <li><a [routerLink]="['/auth', 'login']">Login</a></li>
+    </ul>
+  </li>
+
+  <li class="dropdown" id="true" dropdown *ngIf="isAuthenticated">
+    <a  class="dropdown-toggle" dropdownToggle>
+      <i class="fa fa-user" aria-hidden="true"></i>
+      <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu" *dropdownMenu>
+      <li><a routerLink="/product/add">Add Product</a></li>
+      <li><a routerLink="/user">My Profile</a></li>
+      <li><a routerLink="/user/products">My Products</a></li>
+      <li role="separator" class="divider"></li>
+      <li><a routerLink="/user/addresses">Saved Addresses</a></li>
+      <li role="separator" class="divider"></li>
+      <li><a href="#">Edit Profile</a></li>
+      <li><a (click)="logout()">Logout</a></li>
+    </ul>
+  </li>
+
+</ul>

@@ -5,6 +5,6 @@
 
 export const environment = {
   production: false,
-   api:"http://40.123.49.230:9999/api/"
-  // api:"http://localhost:9999/api/"
+  // api:"http://40.123.49.230:9999/api/"
+  api:"http://localhost:9999/api/"
 };
