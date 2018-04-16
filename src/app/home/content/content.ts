@@ -12,7 +12,7 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 //   styleUrls: ['./content-header.component.scss']
 })
 export class ContentComponent implements OnInit {
-  @Input() products: Product[];
+  @Input() products: any[];
   @Input() categoryIds;
   toggleLayout = {size: 'COZY'};
 

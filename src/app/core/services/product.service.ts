@@ -15,16 +15,21 @@ import {
 import {
   environment
 } from "./../../../environments/environment";
+import { BehaviorSubject } from "rxjs/BehaviorSubject";
 
 @Injectable()
 export class ProductService {
+  private productList = new BehaviorSubject <any[]>([]);
+  currentProductList = this.productList.asObservable();
   constructor(private httpClient: HttpClient) {}
 
   getAllProducts(): Observable < any > {
     return this.httpClient
       .get(environment.api + "getAllProducts")
-      .map(res => {
-        if (res) {}
+      .map((res: any) => {
+        if (res) {
+          this.productList.next(res.data.products);
+        }
         return res;
       })
   }
@@ -42,8 +47,10 @@ export class ProductService {
     return this.httpClient
       .post(environment.api + "getProductsByCategory", {
         categoryIdsList: categoryIdsList
-      }).map(res => {
-        if (res) {}
+      }).map((res:any) => {
+        if (res) {
+          this.productList.next(res.data.products);
+        }
         return res;
       })
   }

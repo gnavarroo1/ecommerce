@@ -1,9 +1,21 @@
+import {
+  Observable
+} from 'rxjs/Observable';
+import {
+  Store
+} from '@ngrx/store';
+import {
+  ProductService
+} from '../../../core/services/product.service';
 
-import { Observable } from 'rxjs/Observable';
-import { Store } from '@ngrx/store';
-import { ProductService } from '../../../core/services/product.service';
-
-import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  ChangeDetectorRef
+} from '@angular/core';
 
 @Component({
   selector: 'app-categories',
@@ -12,16 +24,14 @@ import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } fro
 })
 export class CategoriesComponent implements OnInit {
   @Input() categories;
-  @Output() productsList = new EventEmitter<any>();
+  @Output() productsList = new EventEmitter < any > ();
 
-  searchFilters$: Observable<any>;
+  searchFilters$: Observable < any > ;
   selectedFilters = [];
 
-  constructor(private productService: ProductService) {
-  }
+  constructor(private productService: ProductService) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   isChecked(category) {
     let result = false;
@@ -34,21 +44,29 @@ export class CategoriesComponent implements OnInit {
   }
 
   categorySelected(category, checked) {
-    category.isChecked= checked
+    category.isChecked = checked
     if (checked) {
       this.selectedFilters.push(category.id);
       this.productService.getProductsFilteredByCategory(this.selectedFilters).subscribe(res => {
-        console.log(res);
+        console.log(res.data.products);
         this.productsList.emit(res.data.products);
       });
-      
+
     } else {
       var index = this.selectedFilters.indexOf(category.id);
-      this.selectedFilters.splice(index,1);
-      this.productService.getProductsFilteredByCategory(this.selectedFilters).subscribe(res => {
-        console.log(res);
-        this.productsList.emit(res.data.products);
-      });
+      this.selectedFilters.splice(index, 1);
+      if (this.selectedFilters.length !== 0) {
+        this.productService.getProductsFilteredByCategory(this.selectedFilters).subscribe(res => {
+          console.log(res.data.products);
+          this.productsList.emit(res.data.products);
+        });
+      } else {
+        this.productService.getAllProducts().subscribe(res => {
+          console.log(res.data.products);
+          this.productsList.emit(res.data.products);
+        });
+      }
+
     }
   }
 }

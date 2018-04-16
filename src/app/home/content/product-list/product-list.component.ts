@@ -2,6 +2,7 @@ import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import { environment } from './../../../../environments/environment';
 import { Component, OnInit, Input } from '@angular/core';
+import { ProductService } from '../../../core/services/product.service';
 
 @Component({
   selector: 'app-product-list',
@@ -9,14 +10,17 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./product-list.component.scss']
 })
 export class ProductListComponent implements OnInit {
-  @Input() products;
-  // tslint:disable-next-line:no-input-rename
-  @Input('categoryIds') selectedCategoryIds;
+  @Input() products: any[];
+  @Input('categoryIds') selectedCategoryIds: number [];
   @Input() toggleLayout;
+  
+  constructor(private productService: ProductService) {
+    this.productService.currentProductList.subscribe(productList => this.products = productList);
+  }
 
-  constructor() { }
+  ngOnInit() { 
 
-  ngOnInit() { }
+  }
 
   getProductImageUrl(url) {
     return url;
