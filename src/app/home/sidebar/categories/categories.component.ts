@@ -23,15 +23,23 @@ import {
   styleUrls: ['./categories.component.scss']
 })
 export class CategoriesComponent implements OnInit {
-  @Input() categories;
-  @Output() productsList = new EventEmitter < any > ();
+  categories;
+  // @Output() productsList = new EventEmitter < any > ();
 
   searchFilters$: Observable < any > ;
   selectedFilters = [];
 
   constructor(private productService: ProductService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.productService.currentFilters.subscribe(searchFilters => this.selectedFilters = searchFilters);
+    this.productService.currentCategories.subscribe(x => this.categories = x);
+    this.categories.forEach(category => {
+      if (this.selectedFilters.find(x => x === category.id)) {
+        category.isChecked = true;
+      }
+    });
+  }
 
   isChecked(category) {
     let result = false;
@@ -46,24 +54,19 @@ export class CategoriesComponent implements OnInit {
   categorySelected(category, checked) {
     category.isChecked = checked
     if (checked) {
-      this.selectedFilters.push(category.id);
+      this.productService.addFilterSideBar(category.id);
       this.productService.getProductsFilteredByCategory(this.selectedFilters).subscribe(res => {
         console.log(res.data.products);
-        this.productsList.emit(res.data.products);
       });
-
     } else {
-      var index = this.selectedFilters.indexOf(category.id);
-      this.selectedFilters.splice(index, 1);
+      this.productService.deleteFilterSideBar(category.id);
       if (this.selectedFilters.length !== 0) {
         this.productService.getProductsFilteredByCategory(this.selectedFilters).subscribe(res => {
           console.log(res.data.products);
-          this.productsList.emit(res.data.products);
         });
       } else {
         this.productService.getAllProducts().subscribe(res => {
           console.log(res.data.products);
-          this.productsList.emit(res.data.products);
         });
       }
 

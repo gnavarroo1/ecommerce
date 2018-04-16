@@ -14,7 +14,8 @@ import {
 } from '@ngrx/store';
 // import { AppState } from '../../../interfaces';
 import {
-  Router
+  Router,
+  ActivatedRoute
 } from '@angular/router';
 import {
   UserService
@@ -37,11 +38,13 @@ export class SignUpComponent implements OnInit, OnDestroy {
   formSubmit = false;
   // title = environment.AppName;
   registerSubs: Subscription;
+  returnUrl: string;
 
   constructor(
     private fb: FormBuilder,
     // private store: Store<AppState>,
     private router: Router,
+    private route: ActivatedRoute,
     private authService: AuthService,
     private userService: UserService
   ) {
@@ -50,6 +53,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.initForm();
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   onSubmit() {
@@ -58,12 +62,27 @@ export class SignUpComponent implements OnInit, OnDestroy {
     this.formSubmit = true;
     if (this.signUpForm.valid) {
       this.registerSubs = this.userService.create(values).subscribe(data => {
-        const errors = data.status;
-        if (errors) {
+        const errors = data.message;
+
+        if (data.status !== 200) {
           keys.forEach(val => {
             if (errors[val]) {
               this.pushErrorFor(val, errors[val][0]);
             };
+          });
+        } else {
+          this.authService.loginUser(values.email, values.password).subscribe(data => {
+            const error = data.status;
+            const msg = data.message;
+            if (error !== 200) {
+              keys.forEach(val => {
+                this.pushErrorFor(val, msg);
+              });
+            } else {
+              // this.isLoggedIn = true;
+              this.router.navigate([this.returnUrl]);
+
+            }
           });
         }
       });
@@ -97,8 +116,8 @@ export class SignUpComponent implements OnInit, OnDestroy {
 
     this.signUpForm = this.fb.group({
       'email': [email, Validators.compose([Validators.required, Validators.email])],
-      'nombre':[nombre,Validators.compose([Validators.required, Validators.pattern('[A-Za-z\s]+')])],
-      'apellidos':[apellidos,Validators.compose([Validators.required, Validators.pattern('[A-Za-z\s]+')])],
+      'nombre': [nombre, Validators.compose([Validators.required, Validators.pattern('[A-Za-z\s]+')])],
+      'apellidos': [apellidos, Validators.compose([Validators.required, Validators.pattern('[A-Za-z\s]+')])],
       'password': [password, Validators.compose([Validators.required, Validators.minLength(6)])],
       'password_confirmation': [password_confirmation, Validators.compose([Validators.required, Validators.minLength(6)])],
       'dni': [dni, Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(8), Validators.pattern('[0-9]{8}')])]
@@ -109,11 +128,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
   }
 
   redirectIfUserLoggedIn() {
-    // this.store.select(getAuthStatus).subscribe(
-    //   data => {
-    //     if (data === true) { this.router.navigateByUrl('/'); }
-    //   }
-    // );
+
   }
 
   ngOnDestroy() {

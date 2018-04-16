@@ -3,7 +3,7 @@
   <ul class="category">
     <li  *ngFor="let category of categories" class="filter"> 
       <label class="vertical-filters-label common-customCheckbox">  
-        <input type="checkbox" [checked]="isChecked(category)" (click)="categorySelected(category, $event.target.checked)">  {{category.nombre}}
+        <input type="checkbox" [checked]="category.isChecked" (click)="categorySelected(category, $event.target.checked)">  {{category.nombre}}
         <div class="common-checkboxIndicator" ></div>
       </label>
     </li>

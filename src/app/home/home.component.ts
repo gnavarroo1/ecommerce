@@ -28,7 +28,7 @@ import 'rxjs/add/observable/of';
   template: `
     <div class="col-xs-12">
       <div class="col-xs-3">
-        <app-categories [categories]="categories$"></app-categories>
+        <app-categories></app-categories>
       </div>
       <div class="col-xs-9">
         <app-content
@@ -45,33 +45,7 @@ export class HomeComponent implements OnInit {
   products$: [{}] ;
   categories$: [{}] ;
   selectedCategoriesIds$: Observable < number[] > ;
-  // categoriesLst = {
-  //   'categories': [{
-  //       'id': 1,
-  //       'nombre': 'Cereales'
-  //     },
-  //     {
-  //       'id': 2,
-  //       'nombre': 'Tuberculos'
-  //     },
-  //     {
-  //       'id': 3,
-  //       'nombre': 'Legumbres'
-  //     },
-  //     {
-  //       'id': 4,
-  //       'nombre': 'Hortalizas'
-  //     },
-  //     {
-  //       'id': 5,
-  //       'nombre': 'Frutas'
-  //     },
-  //     {
-  //       'id': 6,
-  //       'nombre': 'Oleoginoza'
-  //     }
-  //   ]
-  // };
+  
   constructor(private productService: ProductService) {
     // Get all products for the product list component
     

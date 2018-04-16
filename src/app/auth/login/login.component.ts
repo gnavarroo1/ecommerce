@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   signInForm: FormGroup;
   loginSubs: Subscription;
   returnUrl: string;
-  isLoggedIn: boolean;
+  // isLoggedIn: boolean;
   constructor(
     private fb: FormBuilder,
     // private store: Store<AppState>,
@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.pushErrorFor(val, msg);
           });
         }else{
-          this.isLoggedIn = true;
+          // this.isLoggedIn = true;
           this.router.navigate([this.returnUrl]);
         }
       });
@@ -79,8 +79,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     //     if (data === true) { this.router.navigate([this.returnUrl]); }
     //   }
     // );
-    if(this.isLoggedIn)
-    { this.router.navigate([this.returnUrl]); }
+    this.authService.currentStatus.subscribe(data=>{
+      if(data === true) { this.router.navigateByUrl('/'); }
+    }
+    );
   }
 
   ngOnDestroy() {
