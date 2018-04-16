@@ -24,36 +24,12 @@ import { ProductService } from '../core/services/product.service';
 
 export class AppNavbarComponent implements OnInit {
   isAuthenticated: Observable < boolean > ;
-  private selectedFilters = [];
+  private selectedFilters :any [];
   // @Output() productsList = new EventEmitter <any> ();
 
   categories$: Observable < any >
   categoryList = [];
-    // categoryList = [{
-    //     'id': 1,
-    //     'nombre': 'Cereales'
-    //   },
-    //   {
-    //     'id': 2,
-    //     'nombre': 'Tuberculos'
-    //   },
-    //   {
-    //     'id': 3,
-    //     'nombre': 'Legumbres'
-    //   },
-    //   {
-    //     'id': 4,
-    //     'nombre': 'Hortalizas'
-    //   },
-    //   {
-    //     'id': 5,
-    //     'nombre': 'Frutas'
-    //   },
-    //   {
-    //     'id': 6,
-    //     'nombre': 'Oleoginoza'
-    //   }
-    // ];
+  filter ="";
   constructor(private authService: AuthService, private router: Router, private productService: ProductService) {
     
   }
@@ -64,9 +40,18 @@ export class AppNavbarComponent implements OnInit {
     this.productService.currentCategories.subscribe(categoryList => this.categoryList = categoryList);
   }
 
+  filterList(){
+    this.productService.getProductsFiltered(this.selectedFilters,this.filter).subscribe(res => {
+      console.log(res.data.products);
+    });
+  }
+
   selectCategory(category) {
-    this.router.navigateByUrl('/');
+    // this.router.navigateByUrl('/');
     this.productService.addFilterHeader(category.id);
-    this.productService.getProductsFilteredByCategory(this.selectedFilters);
+    // console.log(this.selectedFilters);
+    this.productService.getProductsFiltered(this.selectedFilters,"").subscribe(res => {
+      console.log(res.data.products);
+    });
   }
 }

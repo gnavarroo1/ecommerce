@@ -29,9 +29,9 @@ export class ProductService {
   currentFilters = this.searchFilters.asObservable();
 
   private tmp = [];
-  private categories = new BehaviorSubject<any[]> ([]);
+  private categories = new BehaviorSubject < any[] > ([]);
   currentCategories = this.categories.asObservable();
-  
+
   constructor(private httpClient: HttpClient) {}
 
   getAllProducts(): Observable < any > {
@@ -48,40 +48,55 @@ export class ProductService {
   getAllCategories(): Observable < any > {
     return this.httpClient
       .get(environment.api + "listCategories")
-      .map((res:any) => {
+      .map((res: any) => {
         if (res) {
           res.data.forEach(category => {
             category.isChecked = false;
           });
-          this.tmp= res.data;
+          this.tmp = res.data;
           this.categories.next(res.data);
         }
         return res;
       })
   }
 
-  getProductsFilteredByCategory(categoryIdsList): Observable < any > {
-    console.log(categoryIdsList);
+  getProductsFiltered(categoryIdsList?:any[], searchString?:string): Observable < any > {
     return this.httpClient
       .post(environment.api + "getProductsByCategory", {
-        categoryIdsList: categoryIdsList
+        categoryIdsList: categoryIdsList,
+        searchString: searchString,
       }).map((res: any) => {
-        console.log("here");
-        var productsTmpLst =[];
+        var productsTmpLst = [];
         if (res) {
           productsTmpLst = res.data.products;
-          
         }
         this.productList.next(productsTmpLst);
         return res;
       })
   }
 
+  // getProductsFiltered(searchString: string) {
+  //   var filter = [];
+  //   this.currentFilters.subscribe(x => filter = x);
+  //   return this.httpClient.post(environment.api + "getProductsByCategory", {
+  //     searchString: searchString,
+  //     categoryIdsList: filter
+  //   }).map((res: any) => {
+  //     var productsTmpLst = [];
+  //     if (res) {
+  //       productsTmpLst = res.data.products;
+  //     }
+  //     this.productList.next(productsTmpLst);
+  //     return res;
+  //   });
+  // }
+
+
   addFilterHeader(categoryID) {
     this.filterList = [];
     this.filterList.push(categoryID);
     this.searchFilters.next(this.filterList);
-    this.checkCategoryFromHeader(this.tmp,categoryID);
+    this.checkCategoryFromHeader(this.tmp, categoryID);
     this.categories.next(this.tmp);
   }
 
@@ -97,18 +112,17 @@ export class ProductService {
     this.filterList.splice(index, 1);
     this.searchFilters.next(this.filterList);
   }
-  
+
   private handleError(err: HttpErrorResponse | any) {
     console.error('An error occurred', err);
     return Observable.throw(err.message || err);
   }
 
-  checkCategoryFromHeader(array,id)
-  {
+  checkCategoryFromHeader(array, id) {
     array.forEach(element => {
       element.isChecked = false;
     });
-    array[array.findIndex(x=>x.id === id)].isChecked = true;
+    array[array.findIndex(x => x.id === id)].isChecked = true;
   }
 
 }

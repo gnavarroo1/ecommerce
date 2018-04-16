@@ -55,13 +55,13 @@ export class CategoriesComponent implements OnInit {
     category.isChecked = checked
     if (checked) {
       this.productService.addFilterSideBar(category.id);
-      this.productService.getProductsFilteredByCategory(this.selectedFilters).subscribe(res => {
+      this.productService.getProductsFiltered(this.selectedFilters,"").subscribe(res => {
         console.log(res.data.products);
       });
     } else {
       this.productService.deleteFilterSideBar(category.id);
       if (this.selectedFilters.length !== 0) {
-        this.productService.getProductsFilteredByCategory(this.selectedFilters).subscribe(res => {
+        this.productService.getProductsFiltered(this.selectedFilters,"").subscribe(res => {
           console.log(res.data.products);
         });
       } else {

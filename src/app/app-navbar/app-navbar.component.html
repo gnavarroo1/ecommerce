@@ -25,7 +25,7 @@
       <app-profile-dropdown [isAuthenticated]="isAuthenticated.value"></app-profile-dropdown>
 
       <div class="desktop-query">
-        <input placeholder="Search" class="desktop-searchBar">
+        <input placeholder="Search" class="desktop-searchBar" [(ngModel)] = "filter" (ngModelChange)="filterList()" >
         <a class="desktop-submit">
           <span class="web-sprite desktop-iconSearch sprites-search"></span>
         </a>
