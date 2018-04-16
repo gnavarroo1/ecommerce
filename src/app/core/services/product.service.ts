@@ -20,33 +20,34 @@ import {
 export class ProductService {
   constructor(private httpClient: HttpClient) {}
 
-  getAllProducts() : Observable<any>{
+  getAllProducts(): Observable < any > {
     return this.httpClient
       .get(environment.api + "getAllProducts")
       .map(res => {
-        if (res) {
-        }
-        return res;})
-  }
-
-  getAllCategories(): Observable<any> {
-    return this.httpClient
-      .get(environment.api + "listCategories",{})
-      .map(res => {
-        if (res) {
-        }
-        return res;})
-  }
-
-  getProducts() {
-    return this.httpClient
-      .get(environment.api + "getAllProducts", {
-        observe: 'response'
+        if (res) {}
+        return res;
       })
-      .pipe(
-        catchError(this.handleError)
-      );
   }
+
+  getAllCategories(): Observable < any > {
+    return this.httpClient
+      .get(environment.api + "listCategories", {})
+      .map(res => {
+        if (res) {}
+        return res;
+      })
+  }
+
+  getProductsFilteredByCategory(categoryIdsList): Observable<any> {
+    return this.httpClient
+      .post(environment.api + "getProductsByCategory", {
+        categoryIdsList: categoryIdsList
+      }).map(res => {
+        if (res) {}
+        return res;
+      })
+  }
+
   private handleError(err: HttpErrorResponse | any) {
     console.error('An error occurred', err);
     return Observable.throw(err.message || err);

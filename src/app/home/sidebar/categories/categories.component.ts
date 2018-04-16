@@ -1,6 +1,7 @@
 
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
+import { ProductService } from '../../../core/services/product.service';
 
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 
@@ -11,10 +12,12 @@ import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } fro
 })
 export class CategoriesComponent implements OnInit {
   @Input() categories;
+  @Output() productsList = new EventEmitter<any>();
+
   searchFilters$: Observable<any>;
   selectedFilters = [];
 
-  constructor() {
+  constructor(private productService: ProductService) {
   }
 
   ngOnInit() {
@@ -33,10 +36,19 @@ export class CategoriesComponent implements OnInit {
   categorySelected(category, checked) {
     category.isChecked= checked
     if (checked) {
-      this.selectedFilters.push(category)
+      this.selectedFilters.push(category.id);
+      this.productService.getProductsFilteredByCategory(this.selectedFilters).subscribe(res => {
+        console.log(res);
+        this.productsList.emit(res.data.products);
+      });
+      
     } else {
-      var index = this.selectedFilters.indexOf(category);
+      var index = this.selectedFilters.indexOf(category.id);
       this.selectedFilters.splice(index,1);
+      this.productService.getProductsFilteredByCategory(this.selectedFilters).subscribe(res => {
+        console.log(res);
+        this.productsList.emit(res.data.products);
+      });
     }
   }
 }
