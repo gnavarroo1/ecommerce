@@ -49,5 +49,4 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.orderSub$.unsubscribe();
   }
-
 }

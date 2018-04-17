@@ -56,17 +56,17 @@ export class CategoriesComponent implements OnInit {
     if (checked) {
       this.productService.addFilterSideBar(category.id);
       this.productService.getProductsFiltered(this.selectedFilters,"").subscribe(res => {
-        console.log(res.data.products);
+        
       });
     } else {
       this.productService.deleteFilterSideBar(category.id);
       if (this.selectedFilters.length !== 0) {
         this.productService.getProductsFiltered(this.selectedFilters,"").subscribe(res => {
-          console.log(res.data.products);
+          
         });
       } else {
         this.productService.getAllProducts().subscribe(res => {
-          console.log(res.data.products);
+          
         });
       }
 

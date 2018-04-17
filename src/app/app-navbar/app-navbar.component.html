@@ -13,8 +13,8 @@
       </a>
     </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >
+      <ul class="nav navbar-nav" *ngIf="!getRoutes()">
         <li *ngFor="let category of categoryList" class="">
           <a (click)="selectCategory(category)">{{category.nombre}}
             <span class="sr-only">(current)</span>
@@ -24,7 +24,7 @@
 
       <app-profile-dropdown [isAuthenticated]="isAuthenticated.value"></app-profile-dropdown>
 
-      <div class="desktop-query">
+      <div class="desktop-query" *ngIf="!getRoutes()">
         <input placeholder="Search" class="desktop-searchBar" [(ngModel)] = "filter" (ngModelChange)="filterList()" >
         <a class="desktop-submit">
           <span class="web-sprite desktop-iconSearch sprites-search"></span>

@@ -42,16 +42,22 @@ export class AppNavbarComponent implements OnInit {
 
   filterList(){
     this.productService.getProductsFiltered(this.selectedFilters,this.filter).subscribe(res => {
-      console.log(res.data.products);
+      
     });
   }
 
   selectCategory(category) {
-    // this.router.navigateByUrl('/');
+    
     this.productService.addFilterHeader(category.id);
-    // console.log(this.selectedFilters);
+    
     this.productService.getProductsFiltered(this.selectedFilters,"").subscribe(res => {
-      console.log(res.data.products);
+      
     });
   }
+
+  
+  getRoutes(){
+    return this.router.url === "/auth/login" || this.router.url === "/auth/signup";
+  }
+  
 }
