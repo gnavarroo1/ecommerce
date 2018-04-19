@@ -17,6 +17,16 @@ export class UserService {
         });
     }
 
+    getUserDetails(){
+        return this.http.post(environment.api + "getUserDetails",{
+            userId: JSON.parse(localStorage.getItem('currentUser')).id
+        }).map((res:any)=>{
+            if(res){
+
+            }
+            return res;
+        })  
+    }
     getUserProductsOffer(){
         console.log("oa");
         return this.http
