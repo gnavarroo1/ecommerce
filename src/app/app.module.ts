@@ -17,6 +17,7 @@ import { HomeModule } from './home/home.module';
 import { SharedModule } from './shared/index';
 import { StoreModule } from '@ngrx/store';
 import { CoreModule } from './core/index';
+import { UserModule } from './user/user.module';
 // adding rx operators
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/filter';
@@ -26,6 +27,7 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/finally';
 import 'rxjs/add/observable/of';
 
+
 @NgModule({
   declarations: [
     AppComponent
@@ -34,7 +36,7 @@ import 'rxjs/add/observable/of';
     RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
     BrowserModule,
     FormsModule,
-    // HttpModule,
+    // UserModule,
     
     HttpClientModule,
     HomeModule,

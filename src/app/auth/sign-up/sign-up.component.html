@@ -3,32 +3,18 @@
     <div class="col-md-5 col-centered">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">Signup to {{title}}</h3>
+          <h3 class="panel-title">Registrar usuario</h3>
         </div>
         <div id="existing-customer" class="panel-body" data-hook="login">
-          <!-- <div class="register-third-party-register">
-            <p class="register-button-info-text register-info-text">EASILY USING</p>
-            <div class="register-button-container">
-              <button class="register-facebook register-button coming-soon">
-                <span class="register-fb-logo register-sprite"></span>
-                FACEBOOK
-              </button>
-              <button class="register-google register-button coming-soon" id="gPlusLogin">
-                <span class="register-gplus-logo register-sprite"></span>
-                GOOGLE
-              </button>
-            </div>
-          </div>
-          <p class="register-button-info-text register-info-text">- OR USING EMAIL -</p> -->
           <form class="register-register-form" novalidate="" [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
             <fieldset class="register-input-container">
 
               <div class="register-input-item">
-                <input type="email" class="register-user-input-email register-user-input" name="email" formControlName="email" placeholder="Your Email Address"
+                <input type="email" class="register-user-input-email register-user-input" name="email" formControlName="email" placeholder="Correo electronico"
                   autocomplete="off">
                 <div *ngIf="signUpForm.get('email').errors && signUpForm.get('email').touched">
                   <span class="register-error-icon">!</span>
-                  <p class="register-error-message">{{signUpForm.get('email').errors.msg || 'Please enter a valid email id'}}</p>
+                  <p class="register-error-message">{{signUpForm.get('email').errors.msg || 'Por favor, ingrese un correo electrónico valido'}}</p>
                 </div>
               </div>
               <div class="register-input-item">

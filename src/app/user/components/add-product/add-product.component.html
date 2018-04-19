@@ -1,0 +1,57 @@
+<div class="row register-container" data-hook="">
+  <div id="content" class="col-sm-12" data-hook="">
+    <div class="col-md-5 col-centered">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Agregar producto</h3>
+        </div>
+        <div id="existing-customer" class="panel-body" data-hook="login">
+          <form class="register-register-form" novalidate="" [formGroup]="addProductForm" (ngSubmit)="onSubmit()">
+            <fieldset class="register-input-container">
+              <div class="register-input-item">
+                <input type="email" class="register-user-input-email register-user-input" name="nombre" formControlName="nombre" placeholder="Nombres"
+                  autocomplete="off">
+                <div *ngIf="addProductForm.get('nombre').errors && addProductForm.get('nombre').touched">
+                  <span class="register-error-icon">!</span>
+                  <p class="register-error-message">{{addProductForm.get('nombre').errors.msg || 'Ingrese caracteres validos'}}</p>
+                </div>
+              </div>
+              <div class="register-input-item">
+                <input type="number" class="register-user-input-mobile register-user-input" name="qty" formControlName="qty" placeholder="Cantidad">
+                <div *ngIf="addProductForm.get('qty').errors && addProductForm.get('qty').touched">
+                  <span class="register-error-icon">!</span>
+                  <p class="register-error-message">{{addProductForm.get('qty').errors.msg || 'Por favor ingrese una cantidad valida ( > 0 )'}}</p>
+                </div>
+              </div>
+              <div class="register-input-item">
+                <input type="number" step=".01" class="register-user-input-mobile register-user-input" name="price" formControlName="price" placeholder="Precio">
+                <div *ngIf="addProductForm.get('price').errors && addProductForm.get('price').touched">
+                  <span class="register-error-icon">!</span>
+                  <p class="register-error-message">{{addProductForm.get('price').errors.msg || 'Por favor ingrese un precio valido ( > 0 )'}}</p>
+                </div>
+              </div>
+              <div class="register-input-item">
+                <textarea class="register-user-input-email register-user-input" name="description" formControlName="description" placeholder="Descripción">
+                </textarea> 
+                <div *ngIf="addProductForm.get('description').errors && addProductForm.get('description').touched">
+                        <span class="register-error-icon">!</span>
+                        <p class="register-error-message">{{addProductForm.get('description').errors.msg || 'Por favor ingrese una descripción'}}</p>
+                      </div>
+              </div>
+
+              <div class="register-input-item" style="margin-top: 40px;">
+                <select [(ngModel)]="selectedCategory" id="category" [ngModelOptions]="{standalone: true}" style="width: 50%">
+                  <option value="" disabled selected>Seleccionar categoria</option>
+                  <option *ngFor="let item of categories" [value]="item.id">{{item.nombre}}</option>
+                </select>
+              </div>
+            </fieldset>
+            <fieldset class="register-register-button-container">
+              <button class="btn btn-danger register-register-button">Agregar</button>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

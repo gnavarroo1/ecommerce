@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
+
 import { AuthService } from './services/auth.service';
 import { ProductService } from './services/product.service';
 import { UserService } from './services/user.service';
 
+import { CanActivateViaAuthGuard } from './guards/auth.guard';
 @NgModule({
     declarations: [
       // components
@@ -14,13 +16,13 @@ import { UserService } from './services/user.service';
 
     ],
     imports: [
-      // Were not working on modules sice update to rc-5
-      // TO BE moved to respective modules.
+
     ],
     providers: [
       AuthService,
       ProductService,
-      UserService
+      UserService,
+      CanActivateViaAuthGuard
     ]
   })
   export class CoreModule {}

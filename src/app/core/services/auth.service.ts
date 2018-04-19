@@ -20,6 +20,7 @@ export class AuthService {
   constructor(private httpClient: HttpClient) {}
   private isAuthenticated = new BehaviorSubject < boolean > (false);
   currentStatus = this.isAuthenticated.asObservable();
+  
   loginUser(email: string, password: string) :Observable<any> {
     return this.httpClient.post < any > (environment.api + "loginUser", {
       email: email,

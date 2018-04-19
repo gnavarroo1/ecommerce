@@ -1,0 +1,40 @@
+import { Subscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
+import { Injectable, OnDestroy } from '@angular/core';
+import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Store } from '@ngrx/store';
+// import { AppState } from '../../interfaces';
+// import { getAuthStatus } from '../../auth/reducers/selectors';
+import {AuthService} from '../services/auth.service';
+
+@Injectable()
+export class CanActivateViaAuthGuard implements CanActivate, OnDestroy{
+  isAuthenticated: boolean;
+  subscription: Subscription;
+
+  constructor(
+    private router: Router,
+    private authService: AuthService
+  ) {
+  }
+
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    this.subscription = this.authService.currentStatus
+      .subscribe(isAuthenticated => {
+        this.isAuthenticated = isAuthenticated;
+        if (!isAuthenticated) {
+          this.router.navigate(
+            ['/auth/login'],
+            { queryParams: { returnUrl: state.url }}
+          );
+        }
+      });
+
+    return this.isAuthenticated;
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
+}

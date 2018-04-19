@@ -1,4 +1,5 @@
 import { RouterModule, Routes } from '@angular/router';
+import { CanActivateViaAuthGuard } from './core/guards/auth.guard';
 export const routes: Routes = [
     {
       path: '',
@@ -6,11 +7,11 @@ export const routes: Routes = [
     // {
     //   path: 'checkout',
     //   loadChildren: './checkout/checkout.module#CheckoutModule' },
-    // {
-    //   path: 'user',
-    //   loadChildren: './user/index#UserModule',
-    //   canActivate: [ CanActivateViaAuthGuard ]
-    // },
+    {
+      path: 'user',
+      loadChildren: './user/user.module#UserModule',
+      canActivate: [ CanActivateViaAuthGuard ]
+    },
     // {
     //   path: 'product',
     //   loadChildren: './product/index#ProductModule'
