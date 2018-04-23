@@ -5,9 +5,9 @@
       <span class="caret"></span>
     </a>
     <ul class="dropdown-menu" *dropdownMenu>
-      <li><a [routerLink]="['/auth']">Sign Up</a></li>
+      <li><a [routerLink]="['/auth']">Registrarse</a></li>
       <li role="separator" class="divider"></li>
-      <li><a [routerLink]="['/auth', 'login']">Login</a></li>
+      <li><a [routerLink]="['/auth', 'login']">Ingresar</a></li>
     </ul>
   </li>
 
@@ -17,13 +17,13 @@
       <span class="caret"></span>
     </a>
     <ul class="dropdown-menu" *dropdownMenu>
-      <li><a routerLink="/user/add-product">Add Product</a></li>
+      <li><a routerLink="/user/add-product">Agregar Producto</a></li>
       <li role="separator" class="divider"></li>
-      <li><a routerLink="/user/user-profile">My Profile</a></li>
-      <li><a routerLink="/user/products-offer">My Products</a></li>
+      <li><a routerLink="/user/user-profile">Mi Perfil</a></li>
+      <li><a routerLink="/user/products-offer">Mis Productos</a></li>
       <li role="separator" class="divider"></li>
-      <li><a href="#">Edit Profile</a></li>
-      <li><a (click)="logout()">Logout</a></li>
+      <li><a href="#">Editar Perfil</a></li>
+      <li><a (click)="logout()">Salir</a></li>
     </ul>
   </li>
 

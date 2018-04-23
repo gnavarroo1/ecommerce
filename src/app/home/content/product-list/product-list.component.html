@@ -1,7 +1,7 @@
 <div class="row-base" style="display: -webkit-flex">
     <section>
       <ul class="results-base">
-        <p *ngIf="products.length === 0">No Products found for this category</p>
+        <p *ngIf="products.length === 0">No se encontraron productos en esta(s) categoria(s)</p>
         <li *ngFor="let product of products | filter : selectedCategoryIds; trackBy: trackByFn" class="product-base" [style.margin]="getMargin()" itemscope
           itemtype="https://schema.org/Product">
           <div class="product-thumbShim"></div>
@@ -16,7 +16,7 @@
               <div itemprop="offers" itemscope itemtype="https://schema.org/Offer" class="product-price">
                 <span>
                   <!-- Discounted price -->
-                  <span itemprop="price" class="product-discountedPrice">$ {{ product.price }}</span>
+                  <span itemprop="price" class="product-discountedPrice">S/  {{ product.price }}</span>
                   <!-- Original price -->
                 </span>
                 

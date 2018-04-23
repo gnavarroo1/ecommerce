@@ -23,7 +23,7 @@ import { ProductService } from '../core/services/product.service';
 })
 
 export class AppNavbarComponent implements OnInit {
-  isAuthenticated: Observable < boolean > ;
+  isAuthenticated: boolean ;
   private selectedFilters :any [];
   // @Output() productsList = new EventEmitter <any> ();
 
@@ -35,7 +35,7 @@ export class AppNavbarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.authService.currentStatus.subscribe(res => this.isAuthenticated = Observable.of(res));
+    this.authService.currentStatus.subscribe(res => this.isAuthenticated = res);
     this.productService.currentFilters.subscribe(searchFilters => this.selectedFilters = searchFilters );
     this.productService.currentCategories.subscribe(categoryList => this.categoryList = categoryList);
   }

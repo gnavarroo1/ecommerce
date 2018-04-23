@@ -3,7 +3,7 @@
     <div class="col-md-5 col-centered">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">Login to {{title}}</h3>
+          <h3 class="panel-title">Ingresar</h3>
         </div>
         <div id="existing-customer" class="panel-body" data-hook="login">
           <!-- <div class="login-third-party-login">
@@ -23,7 +23,7 @@
           <form class="login-login-form" [formGroup]="signInForm" (ngSubmit)="onSubmit()">
             <fieldset class="login-input-container">
               <div class="login-input-item">
-                <input type="email" class="login-user-input-email login-user-input" name="email" placeholder="Your Email Address" formControlName="email"
+                <input type="email" class="login-user-input-email login-user-input" name="email" placeholder="Ingresa tu email" formControlName="email"
                   autocomplete="off">
                 <div *ngIf="signInForm.get('email').errors && signInForm.get('email').touched">
                   <span class="login-error-icon text-danger">!</span>
@@ -31,7 +31,7 @@
                 </div>
               </div>
               <div class="login-input-item">
-                <input type="password" class="login-user-input-password login-user-input" name="password" placeholder="Enter Password" formControlName="password"
+                <input type="password" class="login-user-input-password login-user-input" name="password" placeholder="Ingresar contraseña" formControlName="password"
                   autocomplete="off">
                 <div *ngIf="signInForm.get('password').errors && signInForm.get('password').touched">
                   <span class="login-error-icon text-danger">!</span>
@@ -40,7 +40,7 @@
               </div>
             </fieldset>
             <fieldset class="login-login-button-container">
-              <button type="submit" class="btn btn-danger login-login-button">Log in</button>
+              <button type="submit" class="btn btn-danger login-login-button">Ingrese</button>
             </fieldset>
           </form>
         </div>
