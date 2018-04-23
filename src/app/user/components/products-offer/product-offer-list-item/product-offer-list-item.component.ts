@@ -4,11 +4,11 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Product } from '../../../../core/models/product';
 
 @Component({
-  selector: 'app-product-list-item',
-  templateUrl: './product-list-item.component.html',
-  styleUrls: ['./product-list-item.component.scss']
+  selector: 'app-product-offer-list-item',
+  templateUrl: './product-offer-list-item.component.html',
+  styleUrls: ['./product-offer-list-item.component.scss']
 })
-export class ProductListItemComponent implements OnInit {
+export class ProductOfferListItemComponent implements OnInit {
   @Input() product: Product;
 
   constructor() { }

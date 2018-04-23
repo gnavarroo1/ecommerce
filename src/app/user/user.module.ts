@@ -15,7 +15,7 @@ import {
 } from './components/add-product/add-product.component';
 import { ProductsOfferComponent } from './components/products-offer/products-offer.component';
 import { UserDetailsComponent } from './components/user-details/user-details.component';
-
+import { ProductOfferListItemComponent} from './components/products-offer/product-offer-list-item/product-offer-list-item.component';
 import {
   UserComponent
 } from './user.component';
@@ -37,9 +37,9 @@ import {
     // components
     AddProductComponent,
     ProductsOfferComponent,
-    UserDetailsComponent
-    // UserComponent
-
+    UserDetailsComponent,
+    UserComponent,
+    ProductOfferListItemComponent
 
   ],
   exports: [
