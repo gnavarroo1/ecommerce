@@ -34,14 +34,14 @@ export class LoginComponent implements OnInit, OnDestroy {
   onSubmit() {
     const values = this.signInForm.value;
     const keys = Object.keys(values);
-
+    console.log(keys);
     if (this.signInForm.valid) {
       this.loginSubs = this.authService.loginUser(values.email,values.password).subscribe(data => {
         const error = data.status;
         const msg = data.message;
         if (error!== 200) {
           keys.forEach(val => {
-            this.pushErrorFor(val, msg);
+            this.pushErrorFor(val, msg[val]);
           });
         }else{
           // this.isLoggedIn = true;
@@ -73,12 +73,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
   }
 
-  redirectIfUserLoggedIn() {
-    // this.store.select(getAuthStatus).subscribe(
-    //   data => {
-    //     if (data === true) { this.router.navigate([this.returnUrl]); }
-    //   }
-    // );
+  redirectIfUserLoggedIn() {    
     this.authService.currentStatus.subscribe(data=>{
       if(data === true) { this.router.navigateByUrl('/'); }
     }
