@@ -1,0 +1,19 @@
+<div itemscope itemtype="https://schema.org/Product" *ngIf="product != null" class="row padding-top">
+
+  <div class="image-container">
+    <img itemprop="image" [src]="getProductImageUrl(undefined)"  onerror="this.src='./assets/image-not-found.png'" class="thumbnails-selected-image"
+    />
+  </div>
+  <div class="col-md-6">
+    <div>
+      <h1 itemprop="name" class="title">{{product.name}}</h1>
+      <p itemprop="price" class="selling-price">
+        <strong>{{product.price}}</strong>
+      </p>
+    </div>
+    <div itemprop="description">
+      <i>{{product.description}}</i>
+    </div>
+  </div>
+
+</div>

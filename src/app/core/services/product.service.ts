@@ -32,6 +32,10 @@ export class ProductService {
   private categories = new BehaviorSubject < any[] > ([]);
   currentCategories = this.categories.asObservable();
 
+  private product =  new BehaviorSubject<any>({});
+  currentProduct = this.product.asObservable();
+
+
   constructor(private httpClient: HttpClient) {}
 
   getAllProducts(): Observable < any > {
@@ -75,21 +79,18 @@ export class ProductService {
       })
   }
 
-  // getProductsFiltered(searchString: string) {
-  //   var filter = [];
-  //   this.currentFilters.subscribe(x => filter = x);
-  //   return this.httpClient.post(environment.api + "getProductsByCategory", {
-  //     searchString: searchString,
-  //     categoryIdsList: filter
-  //   }).map((res: any) => {
-  //     var productsTmpLst = [];
-  //     if (res) {
-  //       productsTmpLst = res.data.products;
-  //     }
-  //     this.productList.next(productsTmpLst);
-  //     return res;
-  //   });
-  // }
+  getProduct(productId): Observable < any >{
+    return this.httpClient.post(environment.api+"getProductDetailsById",{
+      productId: productId
+    }).map((res:any) =>{
+      var productTmp = undefined;
+      if(res){
+        productTmp = res.data.product;
+      }
+      this.product.next(productTmp);
+      return res;
+    })
+  }
 
 
   addFilterHeader(categoryID) {

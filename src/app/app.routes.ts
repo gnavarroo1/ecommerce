@@ -12,10 +12,10 @@ export const routes: Routes = [
       loadChildren: './user/user.module#UserModule',
       canActivate: [ CanActivateViaAuthGuard ]
     },
-    // {
-    //   path: 'product',
-    //   loadChildren: './product/index#ProductModule'
-    // },
+    {
+      path: 'product',
+      loadChildren: './product-details/product.module#ProductModule'
+    },
     {
       path: 'auth',
       loadChildren: './auth/auth.module#AuthModule'
