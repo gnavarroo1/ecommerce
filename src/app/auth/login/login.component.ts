@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../core/services/auth.service';
-import { Store } from '@ngrx/store';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -17,7 +16,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   // isLoggedIn: boolean;
   constructor(
     private fb: FormBuilder,
-    // private store: Store<AppState>,
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService
@@ -27,7 +25,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.initForm();
-    // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
@@ -58,11 +55,9 @@ export class LoginComponent implements OnInit, OnDestroy {
       });
     }
   }
-
   private pushErrorFor(ctrl_name: string, msg: string) {
     this.signInForm.controls[ctrl_name].setErrors({'msg': msg});
   }
-
   initForm() {
     const email = '';
     const password = '';
@@ -72,16 +67,13 @@ export class LoginComponent implements OnInit, OnDestroy {
       'password': [password, Validators.required]
     });
   }
-
   redirectIfUserLoggedIn() {    
     this.authService.currentStatus.subscribe(data=>{
       if(data === true) { this.router.navigateByUrl('/'); }
     }
     );
   }
-
   ngOnDestroy() {
     if (this.loginSubs) { this.loginSubs.unsubscribe(); }
   }
-
 }

@@ -8,11 +8,7 @@ import {
   FormBuilder,
   Validators
 } from '@angular/forms';
-// import { environment } from '../../../../environments/environment';
-import {
-  Store
-} from '@ngrx/store';
-// import { AppState } from '../../../interfaces';
+
 import {
   Router,
   ActivatedRoute
@@ -23,7 +19,6 @@ import {
 import {
   AuthService
 } from '../../core/services/auth.service';
-// import { getAuthStatus } from '../../reducers/selectors';
 import {
   Subscription
 } from 'rxjs/Subscription';
@@ -36,19 +31,24 @@ import {
 export class SignUpComponent implements OnInit, OnDestroy {
   signUpForm: FormGroup;
   formSubmit = false;
-  // title = environment.AppName;
   registerSubs: Subscription;
   returnUrl: string;
-
+  tipousuarios: {};
+  selectedTipoUsuario:any;
+  errTipoUsuarioLen: number;
   constructor(
     private fb: FormBuilder,
-    // private store: Store<AppState>,
     private router: Router,
     private route: ActivatedRoute,
     private authService: AuthService,
     private userService: UserService
   ) {
     this.redirectIfUserLoggedIn();
+    this.tipousuarios = {
+      natural: 1,
+      juridico: 2
+    }
+    this.errTipoUsuarioLen = 8;
   }
 
   ngOnInit() {
@@ -63,7 +63,6 @@ export class SignUpComponent implements OnInit, OnDestroy {
     if (this.signUpForm.valid) {
       this.registerSubs = this.userService.create(values).subscribe(data => {
         const errors = data.message;
-
         if (data.status !== 200) {
           keys.forEach(val => {
             if (errors[val]) {
@@ -79,9 +78,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
                 this.pushErrorFor(val, msg);
               });
             } else {
-              // this.isLoggedIn = true;
               this.router.navigate([this.returnUrl]);
-
             }
           });
         }
@@ -107,28 +104,26 @@ export class SignUpComponent implements OnInit, OnDestroy {
     const email = '';
     const password = '';
     const password_confirmation = '';
-    const dni = '';
+    const nrodocumento = '';
     const nombre = '';
-    const apellidos = '';
-    const pais = '';
-    // const mobile = '';
-    // const gender = '';
-
+    const tipousuario = ''
     this.signUpForm = this.fb.group({
       'email': [email, Validators.compose([Validators.required, Validators.email])],
       'nombre': [nombre, Validators.compose([Validators.required, Validators.pattern('[A-Za-z\s]+')])],
-      'apellidos': [apellidos, Validators.compose([Validators.required, Validators.pattern('[A-Za-z\s]+')])],
       'password': [password, Validators.compose([Validators.required, Validators.minLength(6)])],
       'password_confirmation': [password_confirmation, Validators.compose([Validators.required, Validators.minLength(6)])],
-      'dni': [dni, Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(8), Validators.pattern('[0-9]{8}')])]
-      // 'pais':[pais,Validators.compose([Validators.required, Validators.pattern('[A-Za-z\s]+')])],
+      'nrodocumento': [nrodocumento, Validators.compose([Validators.required, Validators.minLength(this.errTipoUsuarioLen), Validators.maxLength(this.errTipoUsuarioLen), Validators.pattern('[0-9]{8-11}')])],
+      'tipousuario':[tipousuario,Validators.required]
     }, {
       validator: this.matchingPasswords('password', 'password_confirmation')
     });
   }
 
   redirectIfUserLoggedIn() {
-
+    if(localStorage.getItem["currentUser"])
+    {
+      this.router.navigate([this.returnUrl]);
+    }
   }
 
   ngOnDestroy() {
@@ -151,7 +146,14 @@ export class SignUpComponent implements OnInit, OnDestroy {
       }
     }
   }
-
-
+  errTipoDocumento(){
+    if(this.selectedTipoUsuario==1){
+      this.errTipoUsuarioLen  = 8;
+      
+    }
+    else{
+      this.errTipoUsuarioLen = 11;
+    }
+  }
 
 }

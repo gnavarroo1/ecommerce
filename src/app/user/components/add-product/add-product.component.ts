@@ -37,7 +37,6 @@ export class AddProductComponent implements OnInit, OnDestroy {
   returnUrl: string;
   categories = [];
   selectedCategory:any;
-  categories$: [{}] ;
   currentuser: any;
   constructor(
     private fb: FormBuilder,
@@ -47,9 +46,6 @@ export class AddProductComponent implements OnInit, OnDestroy {
     private productService: ProductService) {}
   ngOnInit(): void {
     this.initForm();
-    this.productService.getAllCategories().subscribe(res => {
-        this.categories$ = res.data;
-      });
     this.productService.currentCategories.subscribe(categoryList => this.categories = categoryList);
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }

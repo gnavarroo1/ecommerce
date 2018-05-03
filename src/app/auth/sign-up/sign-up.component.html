@@ -8,15 +8,6 @@
         <div id="existing-customer" class="panel-body" data-hook="login">
           <form class="register-register-form" novalidate="" [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
             <fieldset class="register-input-container">
-
-              <div class="register-input-item">
-                <input type="email" class="register-user-input-email register-user-input" name="email" formControlName="email" placeholder="Correo electronico"
-                  autocomplete="off">
-                <div *ngIf="signUpForm.get('email').errors && signUpForm.get('email').touched">
-                  <span class="register-error-icon">!</span>
-                  <p class="register-error-message">{{signUpForm.get('email').errors.msg || 'Por favor, ingrese un correo electrónico valido'}}</p>
-                </div>
-              </div>
               <div class="register-input-item">
                 <input type="email" class="register-user-input-email register-user-input" name="nombre" formControlName="nombre" placeholder="Nombres"
                   autocomplete="off">
@@ -26,38 +17,57 @@
                 </div>
               </div>
               <div class="register-input-item">
-                <input type="email" class="register-user-input-email register-user-input" name="apellidos" formControlName="apellidos" placeholder="Apellidos"
-                  autocomplete="off">
-                <div *ngIf="signUpForm.get('apellidos').errors && signUpForm.get('apellidos').touched">
+                <div style="border-top: 1px solid #d5d6d9;padding: 15px 0 15px 0;">
+                  <label style="margin-right: 10%">
+                    <input type="radio" [value]="tipousuarios.natural" [(ngModel)]="selectedTipoUsuario" (ngModelChange)="errTipoDocumento()" formControlName="tipousuario">
+                    <span>Natural</span>
+                  </label>
+                  <label style="margin-left: 10%">
+                    <input type="radio" [value]="tipousuarios.juridico" [(ngModel)]="selectedTipoUsuario" (ngModelChange)="errTipoDocumento()" formControlName="tipousuario">
+                    <span>Juridico</span>
+                  </label>
+                </div>
+                <div *ngIf="signUpForm.get('tipousuario').errors && signUpForm.get('tipousuario').touched">
+                    <span class="register-error-icon">!</span>
+                    <p class="register-error-message">{{signUpForm.get('tipousuario').errors.msg || 'Debe seleccionar un tipo de usuario'}}</p>
+                  </div>
+              </div>
+              <div class="register-input-item">
+                <input type="number" class="register-user-input-mobile register-user-input" name="nrodocumento" formControlName="nrodocumento"
+                  placeholder="Nro. documento">
+                <div *ngIf="signUpForm.get('nrodocumento').errors && signUpForm.get('nrodocumento').touched">
                   <span class="register-error-icon">!</span>
-                  <p class="register-error-message">{{signUpForm.get('apellidos').errors.msg ||  'Ingrese caracteres validos'}}</p>
+                  <p *ngIf="!selectedTipoUsuario" class="register-error-message">{{'Por favor seleccione un tipo de usuario'}}
+                    </p>
+                  <p *ngIf="selectedTipoUsuario && errTipoUsuarioLen == 8" class="register-error-message">{{signUpForm.get('nrodocumento').errors.msg || 'Por favor ingrese un numero de DNI valido ( 8 digitos)'}}
+                  <p *ngIf="selectedTipoUsuario && errTipoUsuarioLen == 11" class="register-error-message">{{signUpForm.get('nrodocumento').errors.msg || 'Por favor ingrese un numero de RUC valido ( 11 digitos)'}}
+                  </p>
+                </div>
+              </div>
+              <div class="register-input-item">
+                <input style="border-top: 1px solid #d5d6d9" type="email" class="register-user-input-email register-user-input" name="email"
+                  formControlName="email" placeholder="Correo electronico" autocomplete="off">
+                <div *ngIf="signUpForm.get('email').errors && signUpForm.get('email').touched">
+                  <span class="register-error-icon">!</span>
+                  <p class="register-error-message">{{signUpForm.get('email').errors.msg || 'Por favor, ingrese un correo electrónico valido'}}</p>
                 </div>
               </div>
               <div class="register-input-item">
                 <input type="password" class="register-user-input-password register-user-input" name="password" formControlName="password"
-                  placeholder="Choose Password" autocomplete="off">
+                  placeholder="Ingresar contraseña" autocomplete="off">
                 <div *ngIf="signUpForm.get('password').errors && signUpForm.get('password').touched">
                   <span class="register-error-icon">!</span>
-                  <p class="register-error-message">{{signUpForm.get('password').errors.msg || 'Password must be at least 6 characters'}}</p>
+                  <p class="register-error-message">{{signUpForm.get('password').errors.msg || 'La contraseña debe de tener por lo menos 6 caracteres'}}</p>
                 </div>
               </div>
-
               <div class="register-input-item">
                 <input type="password" class="register-user-input-password register-user-input" name="password_confirmation" formControlName="password_confirmation"
-                  placeholder="Confirm Password" autocomplete="off">
+                  placeholder="Confirmar contraseña" autocomplete="off">
                 <div *ngIf="(signUpForm.get('password_confirmation').errors || signUpForm.hasError('mismatchedPasswords')) && signUpForm.get('password_confirmation').touched">
                   <span class="register-error-icon">!</span>
-                  <p class="register-error-message">{{ 'Password must match'}}</p>
+                  <p class="register-error-message">{{ 'Las contraseñas deben coincidir'}}</p>
                 </div>
               </div>
-              <div class="register-input-item">
-                <input type="number" class="register-user-input-mobile register-user-input" name="dni" formControlName="dni" placeholder="Nro. DNI">
-                <div *ngIf="signUpForm.get('dni').errors && signUpForm.get('dni').touched">
-                  <span class="register-error-icon">!</span>
-                  <p class="register-error-message">{{signUpForm.get('dni').errors.msg || 'Por favor ingrese un numero de DNI valido (8 digitos)'}}</p>
-                </div>
-              </div>
-              
             </fieldset>
             <fieldset class="register-register-button-container">
               <button class="btn btn-danger register-register-button">REGISTRARSE</button>
