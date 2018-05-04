@@ -35,12 +35,12 @@
               <div class="register-input-item">
                 <input type="number" class="register-user-input-mobile register-user-input" name="nrodocumento" formControlName="nrodocumento"
                   placeholder="Nro. documento">
-                <div *ngIf="signUpForm.get('nrodocumento').errors && signUpForm.get('nrodocumento').touched">
+                <div *ngIf="signUpForm.get('nrodocumento').errors && signUpForm.get('nrodocumento').touched" >
                   <span class="register-error-icon">!</span>
                   <p *ngIf="!selectedTipoUsuario" class="register-error-message">{{'Por favor seleccione un tipo de usuario'}}
                     </p>
-                  <p *ngIf="selectedTipoUsuario && errTipoUsuarioLen == 8" class="register-error-message">{{signUpForm.get('nrodocumento').errors.msg || 'Por favor ingrese un numero de DNI valido ( 8 digitos)'}}
-                  <p *ngIf="selectedTipoUsuario && errTipoUsuarioLen == 11" class="register-error-message">{{signUpForm.get('nrodocumento').errors.msg || 'Por favor ingrese un numero de RUC valido ( 11 digitos)'}}
+                  <p *ngIf="selectedTipoUsuario && esTipoDni()" class="register-error-message">{{signUpForm.get('nrodocumento').errors.msg || 'Por favor ingrese un numero de DNI valido ( 8 digitos)'}}
+                  <p *ngIf="selectedTipoUsuario && !esTipoDni()" class="register-error-message">{{signUpForm.get('nrodocumento').errors.msg || 'Por favor ingrese un numero de RUC valido ( 11 digitos)'}}
                   </p>
                 </div>
               </div>

@@ -34,7 +34,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
   registerSubs: Subscription;
   returnUrl: string;
   tipousuarios: {};
-  selectedTipoUsuario:any;
+  selectedTipoUsuario: any;
   errTipoUsuarioLen: number;
   constructor(
     private fb: FormBuilder,
@@ -112,16 +112,15 @@ export class SignUpComponent implements OnInit, OnDestroy {
       'nombre': [nombre, Validators.compose([Validators.required, Validators.pattern('[A-Za-z\s]+')])],
       'password': [password, Validators.compose([Validators.required, Validators.minLength(6)])],
       'password_confirmation': [password_confirmation, Validators.compose([Validators.required, Validators.minLength(6)])],
-      'nrodocumento': [nrodocumento, Validators.compose([Validators.required, Validators.minLength(this.errTipoUsuarioLen), Validators.maxLength(this.errTipoUsuarioLen), Validators.pattern('[0-9]{8-11}')])],
-      'tipousuario':[tipousuario,Validators.required]
+      'nrodocumento': [nrodocumento, Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(8), Validators.pattern('[0-9]{8}')])],
+      'tipousuario': [tipousuario, Validators.required]
     }, {
       validator: this.matchingPasswords('password', 'password_confirmation')
     });
   }
 
   redirectIfUserLoggedIn() {
-    if(localStorage.getItem["currentUser"])
-    {
+    if (localStorage.getItem["currentUser"]) {
       this.router.navigate([this.returnUrl]);
     }
   }
@@ -146,14 +145,21 @@ export class SignUpComponent implements OnInit, OnDestroy {
       }
     }
   }
-  errTipoDocumento(){
-    if(this.selectedTipoUsuario==1){
-      this.errTipoUsuarioLen  = 8;
-      
-    }
-    else{
+  errTipoDocumento() {
+    if (this.selectedTipoUsuario == 1) {
+      this.errTipoUsuarioLen = 8;
+      this.signUpForm.controls['nrodocumento'].clearValidators();
+      this.signUpForm.controls['nrodocumento'].setValidators([Validators.required, Validators.minLength(8), Validators.maxLength(8), Validators.pattern('[0-9]{8}')])
+    } else {
       this.errTipoUsuarioLen = 11;
+      this.signUpForm.controls['nrodocumento'].clearValidators();
+      this.signUpForm.controls['nrodocumento'].setValidators([Validators.required, Validators.minLength(11), Validators.maxLength(11), Validators.pattern('[0-9]{11}')])
     }
   }
 
+  esTipoDni() {
+    if (this.errTipoUsuarioLen === 8)
+      return true;
+    return false
+  }
 }
