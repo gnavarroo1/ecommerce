@@ -37,6 +37,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
     natural: 1,
     juridico: 2
   }
+  imagen: File = null;
   selectedTipoUsuario: any;
   errTipoUsuarioLen: number;
   constructor(
@@ -161,4 +162,9 @@ export class SignUpComponent implements OnInit, OnDestroy {
       return true;
     return false
   }
+
+  handleFileInput(files: FileList) {
+    this.imagen = files.item(0);
+    console.log(this.imagen);
+}
 }

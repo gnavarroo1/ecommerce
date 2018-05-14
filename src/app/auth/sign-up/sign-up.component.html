@@ -68,6 +68,10 @@
                   <p class="register-error-message">{{ 'Las contraseñas deben coincidir'}}</p>
                 </div>
               </div>
+              <div class="register-input-item">
+                  <label for="file">Seleccionar imagen</label>
+                <input type="file" class="register-user-input-password register-user-input" id="image" (change)="handleFileInput($event.target.files)" name="image" formControlName="image">
+              </div>
             </fieldset>
             <fieldset class="register-register-button-container">
               <button class="btn btn-danger register-register-button">REGISTRARSE</button>

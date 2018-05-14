@@ -30,9 +30,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     BsDropdownModule,
     FormsModule,
     ReactiveFormsModule,
-    // pipes
-    // KeysPipe,
-    // HumanizePipe
   ],
   imports: [
     FormsModule,
