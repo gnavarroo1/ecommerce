@@ -53,9 +53,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
   onSubmit() {
       const values = this.addProductForm.value;
       values.categoryId = this.selectedCategory;
-      console.log(localStorage['currentUser']);
       values.userId = JSON.parse(localStorage.getItem('currentUser')).id;
-      console.log(values.userId);
       const keys = Object.keys(values);
       this.formSubmit = true;
       if (this.addProductForm.valid) {
@@ -86,14 +84,13 @@ export class AddProductComponent implements OnInit, OnDestroy {
   initForm() {
       const nombre = '';
       const description = '';
-      var qty:number;
+      var cantidad:number;
       var price:number;
       const userId =JSON.parse(localStorage.getItem('currentUser')).id;
-      console.log(userId);
       this.addProductForm = this.fb.group({
         'nombre': [nombre, Validators.compose([Validators.required, Validators.pattern('[A-Za-z\s]+')])],
         'description': [description, Validators.compose([Validators.required])],
-        'qty': [qty,Validators.compose([Validators.required,Validators.min(0),Validators.minLength(1),Validators.pattern('[0-9]+')])],
+        'cantidad': [cantidad,Validators.compose([Validators.required,Validators.min(0),Validators.minLength(1),Validators.pattern('[0-9]+')])],
         'price': [price,Validators.compose([Validators.required,Validators.min(0),Validators.pattern('^\\d+\\.\\d{1,2}$')])],
       });
     

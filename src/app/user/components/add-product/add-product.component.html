@@ -17,10 +17,10 @@
                 </div>
               </div>
               <div class="register-input-item">
-                <input type="number" class="register-user-input-mobile register-user-input" name="qty" formControlName="qty" placeholder="Cantidad">
-                <div *ngIf="addProductForm.get('qty').errors && addProductForm.get('qty').touched">
+                <input type="number" class="register-user-input-mobile register-user-input" name="cantidad" formControlName="cantidad" placeholder="Cantidad">
+                <div *ngIf="addProductForm.get('cantidad').errors && addProductForm.get('cantidad').touched">
                   <span class="register-error-icon">!</span>
-                  <p class="register-error-message">{{addProductForm.get('qty').errors.msg || 'Por favor ingrese una cantidad valida ( > 0 )'}}</p>
+                  <p class="register-error-message">{{addProductForm.get('cantidad').errors.msg || 'Por favor ingrese una cantidad valida ( > 0 )'}}</p>
                 </div>
               </div>
               <div class="register-input-item">

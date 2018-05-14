@@ -4,31 +4,28 @@
         <p *ngIf="products.length === 0">No se encontraron productos en esta(s) categoria(s)</p>
         <li *ngFor="let product of products | filter : selectedCategoryIds; trackBy: trackByFn" class="product-base" [style.margin]="getMargin()" itemscope
           itemtype="https://schema.org/Product">
-          <div class="product-thumbShim"></div>
           <a itemprop="url" [routerLink]="['/product/', product.id]">
             <img itemprop="image"
               class="product-thumb"
               [src]="getProductImageUrl(product.nombre)"
               onerror="this.src='./assets/image-not-found.png'">
             <div class="product-productMetaInfo">
+              <div itemprop="name" class="product-brand">Categoria: {{ product.category.nombre }}</div>
               <div itemprop="name" class="product-brand">{{ product.nombre }}</div>
-              <h2 class="product-product">{{ product.description }}</h2>
               <div itemprop="offers" itemscope itemtype="https://schema.org/Offer" class="product-price">
                 <span>
-                  <!-- Discounted price -->
-                  <span itemprop="price" class="product-discountedPrice">S/  {{ product.price }}</span>
-                  <!-- Original price -->
+                  <span itemprop="price" class="product-discountedPrice">Precio x Kg: S/{{ product.preciounitario }}</span>
                 </span>
-                
               </div>
+              <div itemprop="name" class="product-brand">Usuario: {{ product.user.nombre }}</div>
             </div>
           </a>
-          <div class="product-actions">
+          <!-- <div class="product-actions">
             <span class="product-actionsButton product-wishlist coming-soon">save</span>
             <span class="product-actionsButton product-addToBag coming-soon">
              Add to bag
             </span>
-          </div>
+          </div> -->
         </li>
       </ul>
     </section>

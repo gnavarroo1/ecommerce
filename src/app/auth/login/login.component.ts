@@ -31,7 +31,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   onSubmit() {
     const values = this.signInForm.value;
     const keys = Object.keys(values);
-    console.log(keys);
     if (this.signInForm.valid) {
       this.loginSubs = this.authService.loginUser(values.email,values.password).subscribe(data => {
         const error = data.status;

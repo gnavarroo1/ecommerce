@@ -33,7 +33,10 @@ export class SignUpComponent implements OnInit, OnDestroy {
   formSubmit = false;
   registerSubs: Subscription;
   returnUrl: string;
-  tipousuarios: {};
+  tipousuarios = {
+    natural: 1,
+    juridico: 2
+  }
   selectedTipoUsuario: any;
   errTipoUsuarioLen: number;
   constructor(
@@ -44,10 +47,6 @@ export class SignUpComponent implements OnInit, OnDestroy {
     private userService: UserService
   ) {
     this.redirectIfUserLoggedIn();
-    this.tipousuarios = {
-      natural: 1,
-      juridico: 2
-    }
     this.errTipoUsuarioLen = 8;
   }
 

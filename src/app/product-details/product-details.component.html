@@ -1,18 +1,61 @@
 <div itemscope itemtype="https://schema.org/Product" *ngIf="product != null" class="row padding-top">
 
   <div class="image-container">
-    <img itemprop="image" [src]="getProductImageUrl(undefined)"  onerror="this.src='./assets/image-not-found.png'" class="thumbnails-selected-image"
+    <img itemprop="image" [src]="getProductImageUrl(undefined)" onerror="this.src='./assets/image-not-found.png'" class="thumbnails-selected-image"
     />
   </div>
   <div class="col-md-6">
     <div>
-      <h1 itemprop="name" class="title">{{product.name}}</h1>
-      <p itemprop="price" class="selling-price">
-        <strong>{{product.price}}</strong>
-      </p>
+      <div>
+        <h3>Usuario:</h3>
+        <p itemprop="name" class="title">
+          <strong>{{product.userNombre}}</strong>
+        </p>
+      </div>
+      <div>
+        <h3>Email:</h3>
+        <p itemprop="name" class="title">
+          <strong>{{product.userEmail}}</strong>
+        </p>
+      </div>
+      <div>
+        <h3>{{product.userTipoDoc}}</h3>
+        <p itemprop="name" class="title">
+          <strong>{{product.userNroDoc}}</strong>
+        </p>
+      </div>
     </div>
-    <div itemprop="description">
-      <i>{{product.description}}</i>
+    <div>
+      <div>
+        <h3>Producto:</h3>
+        <p itemprop="name" class="title">
+          <strong>{{product.nombre}}</strong>
+        </p>
+      </div>
+      <div>
+        <h3>Categoria:</h3>
+        <p itemprop="name" class="title">
+          <strong>{{product.categoria}}</strong>
+        </p>
+      </div>
+      <div>
+        <h3>Precio por Kg. :</h3>
+        <p itemprop="price" class="selling-price">
+          <strong>S/ {{product.preciounitario}}</strong>
+        </p>
+      </div>
+      <div>
+        <h3>Descripción:</h3>
+        <div itemprop="description">
+          <strong>{{product.descripcion}}</strong>
+        </div>
+      </div>
+      <div>
+          <h3>Publicado el:</h3>
+          <p itemprop="name" class="title">
+            <strong>{{product.createdAt}}</strong>
+          </p>
+        </div>
     </div>
   </div>
 

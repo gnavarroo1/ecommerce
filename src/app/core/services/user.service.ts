@@ -28,7 +28,6 @@ export class UserService {
         })  
     }
     getUserProductsOffer(){
-        console.log("oa");
         return this.http
       .post(environment.api + "getUserProductsOffer", {
             userId: JSON.parse(localStorage.getItem('currentUser')).id

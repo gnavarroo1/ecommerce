@@ -16,7 +16,6 @@ export class UserDetailsComponent implements OnInit {
   constructor(private userService: UserService) {
     this.userService.getUserDetails().subscribe(res => {
       this.user= res.data;
-      console.log(this.user);
     });
     // this.userService.currentProductList.subscribe(productList => this.products = productList);
   }

@@ -129,7 +129,6 @@ export class ProductService {
   addProduct(data){
     return this.httpClient.post<any>(environment.api+'addProduct',data).map(res=>{
       if(res.status=== 200){
-        console.log("Producto agregado")
       }
       return res;        
       
