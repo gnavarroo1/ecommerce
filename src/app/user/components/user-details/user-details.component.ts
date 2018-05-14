@@ -12,7 +12,7 @@ import { UserService } from '../../../core/services/user.service';
 
 export class UserDetailsComponent implements OnInit {
   user:any;
-
+  imagen: any;
   constructor(private userService: UserService) {
     this.userService.getUserDetails().subscribe(res => {
       this.user= res.data;
@@ -20,8 +20,16 @@ export class UserDetailsComponent implements OnInit {
     // this.userService.currentProductList.subscribe(productList => this.products = productList);
   }
 
+  getUserImageUrl(){
+    this.imagen = "/" + this.user.imagen;
+    console.log(this.imagen);
+    return this.imagen;
+  }
+
   ngOnInit() { 
-    
+    this.userService.getUserDetails().subscribe(res => {
+      this.user= res.data;
+    });
   }
 
 }

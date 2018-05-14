@@ -7,7 +7,7 @@
           <a itemprop="url" [routerLink]="['/product/', product.id]">
             <img itemprop="image"
               class="product-thumb"
-              [src]="getProductImageUrl(product.nombre)"
+              [src]="product.imagen"
               onerror="this.src='./assets/image-not-found.png'">
             <div class="product-productMetaInfo">
               <div itemprop="name" class="product-brand">Categoria: {{ product.category.nombre }}</div>

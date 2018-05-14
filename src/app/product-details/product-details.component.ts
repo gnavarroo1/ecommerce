@@ -32,7 +32,7 @@ export class ProductDetailsComponent implements OnInit{
     ngOnInit(){}
     
   getProductImageUrl(url) {
-    return null;
+    return this.product.imagen;
   }
  
 }

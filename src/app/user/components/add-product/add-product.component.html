@@ -45,6 +45,10 @@
                   <option *ngFor="let item of categories" [value]="item.id">{{item.nombre}}</option>
                 </select>
               </div>
+              <div class="register-input-item">
+              <input type="file" placeholder="Seleccionar imagen del producto" class="register-user-input-password register-user-input" id="image" (change)="handleFileInput($event.target.files)" name="image" formControlName="image">
+            </div>
+
             </fieldset>
             <fieldset class="register-register-button-container">
               <button class="btn btn-danger register-register-button">Agregar</button>

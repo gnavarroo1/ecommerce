@@ -9,7 +9,7 @@
           <form class="register-register-form" novalidate="" [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
             <fieldset class="register-input-container">
               <div class="register-input-item">
-                <input type="email" class="register-user-input-email register-user-input" name="nombre" formControlName="nombre" placeholder="Nombres"
+                <input type="text" class="register-user-input-email register-user-input" name="nombre" formControlName="nombre" placeholder="Nombres"
                   autocomplete="off">
                 <div *ngIf="signUpForm.get('nombre').errors && signUpForm.get('nombre').touched">
                   <span class="register-error-icon">!</span>

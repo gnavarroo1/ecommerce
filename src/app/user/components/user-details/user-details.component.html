@@ -5,7 +5,7 @@
   <div class="panel-body">
     <div class="row">
       <div class="col-md-3 col-lg-3 " align="center">
-        <img alt="User Pic" src="http://babyinfoforyou.com/wp-content/uploads/2014/10/avatar-300x300.png" class="img-circle img-responsive"> 
+        <img class="img-circle img-responsive" itemprop="image" [src]="getUserImageUrl()" onerror="this.src='./assets/image-not-found.png'" id="userImage" /> 
       </div>
       <div class=" col-md-9 col-lg-9 ">
         <table class="table table-user-information">
@@ -15,12 +15,8 @@
               <td>{{user.nombre}}</td>
             </tr>
             <tr>
-              <td>APELLIDOS:</td>
-              <td>{{user.apellidos}}</td>
-            </tr>
-            <tr>
               <td>DOCUMENTO:</td>
-              <td>{{user.dni}}</td>
+              <td>{{user.nrodocumento}}</td>
             </tr>
             <tr>
               <td>MIEMBRO DESDE:</td>

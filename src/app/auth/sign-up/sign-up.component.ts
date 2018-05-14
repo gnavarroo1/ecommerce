@@ -22,6 +22,9 @@ import {
 import {
   Subscription
 } from 'rxjs/Subscription';
+import {
+  SharedService
+} from '../../core/services/shared.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -31,6 +34,7 @@ import {
 export class SignUpComponent implements OnInit, OnDestroy {
   signUpForm: FormGroup;
   formSubmit = false;
+  imageSubs: Subscription;
   registerSubs: Subscription;
   returnUrl: string;
   tipousuarios = {
@@ -45,7 +49,8 @@ export class SignUpComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private authService: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private sharedService: SharedService
   ) {
     this.redirectIfUserLoggedIn();
     this.errTipoUsuarioLen = 8;
@@ -58,29 +63,39 @@ export class SignUpComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     const values = this.signUpForm.value;
+    values.image = this.imagen;
     const keys = Object.keys(values);
     this.formSubmit = true;
     if (this.signUpForm.valid) {
-      this.registerSubs = this.userService.create(values).subscribe(data => {
+      this.imageSubs = this.sharedService.uploadImage(values.image).subscribe(data => {
         const errors = data.message;
         if (data.status !== 200) {
-          keys.forEach(val => {
-            if (errors[val]) {
-              this.pushErrorFor(val, errors[val][0]);
-            };
-          });
+          console.log(errors);
         } else {
-          this.authService.loginUser(values.email, values.password).subscribe(data => {
-            const error = data.status;
-            const msg = data.message;
-            if (error !== 200) {
+          values.image = data.imageSrc;
+          this.registerSubs = this.userService.create(values).subscribe(data => {
+            const errors = data.message;
+            if (data.status !== 200) {
               keys.forEach(val => {
-                this.pushErrorFor(val, msg);
+                if (errors[val]) {
+                  this.pushErrorFor(val, errors[val][0]);
+                };
               });
             } else {
-              this.router.navigate([this.returnUrl]);
+              this.authService.loginUser(values.email, values.password).subscribe(data => {
+                const error = data.status;
+                const msg = data.message;
+                if (error !== 200) {
+                  keys.forEach(val => {
+                    this.pushErrorFor(val, msg);
+                  });
+                } else {
+                  this.router.navigate([this.returnUrl]);
+                }
+              });
             }
           });
+
         }
       });
     } else {
@@ -106,10 +121,10 @@ export class SignUpComponent implements OnInit, OnDestroy {
     const password_confirmation = '';
     const nrodocumento = '';
     const nombre = '';
-    const tipousuario = ''
+    const tipousuario = '';
     this.signUpForm = this.fb.group({
       'email': [email, Validators.compose([Validators.required, Validators.email])],
-      'nombre': [nombre, Validators.compose([Validators.required, Validators.pattern('[A-Za-z\s]+')])],
+      'nombre': [nombre, Validators.compose([Validators.required, Validators.pattern('(?=^.{0,40}$)^[a-zA-Z ]+[a-zA-Z ]+$')])],
       'password': [password, Validators.compose([Validators.required, Validators.minLength(6)])],
       'password_confirmation': [password_confirmation, Validators.compose([Validators.required, Validators.minLength(6)])],
       'nrodocumento': [nrodocumento, Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(8), Validators.pattern('[0-9]{8}')])],
@@ -126,8 +141,13 @@ export class SignUpComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    
     if (this.registerSubs) {
       this.registerSubs.unsubscribe();
+      
+    }
+    if (this.imageSubs) {
+      this.imageSubs.unsubscribe();
     }
   }
 
@@ -165,6 +185,5 @@ export class SignUpComponent implements OnInit, OnDestroy {
 
   handleFileInput(files: FileList) {
     this.imagen = files.item(0);
-    console.log(this.imagen);
-}
+  }
 }
