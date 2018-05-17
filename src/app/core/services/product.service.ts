@@ -73,6 +73,7 @@ export class ProductService {
         var productsTmpLst = [];
         if (res) {
           productsTmpLst = res.data.products;
+          console.log(productsTmpLst);
         }
         this.productList.next(productsTmpLst);
         return res;

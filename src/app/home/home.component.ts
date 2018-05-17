@@ -42,8 +42,8 @@ import 'rxjs/add/observable/of';
 })
 //<app-breadcrumb [categories]="categories$.value"></app-breadcrumb>
 export class HomeComponent implements OnInit {
-  products$: [{}] ;
-  categories$: [{}] ;
+  products$: any[] = [] ;
+  categories$: any[] = [] ;
   selectedCategoriesIds$: Observable < number[] > ;
   
   constructor(private productService: ProductService) {
@@ -56,7 +56,6 @@ export class HomeComponent implements OnInit {
     this.productService.getAllCategories().subscribe(res => {
       this.categories$ = res.data;
     });
-    // this.selectedTaxonIds$ = this.store.select(getSelectedTaxonIds);
   }
 
   ngOnInit() {}

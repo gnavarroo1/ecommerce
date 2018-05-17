@@ -10,12 +10,14 @@ import { ProductService } from '../../../core/services/product.service';
   styleUrls: ['./product-list.component.scss']
 })
 export class ProductListComponent implements OnInit {
-  @Input() products: any[];
+  @Input() products: any[]  = [];
   @Input('categoryIds') selectedCategoryIds: number [];
   @Input() toggleLayout;
   
   constructor(private productService: ProductService) {
+    this.products = [];
     this.productService.currentProductList.subscribe(productList => this.products = productList);
+    
   }
 
   ngOnInit() { 

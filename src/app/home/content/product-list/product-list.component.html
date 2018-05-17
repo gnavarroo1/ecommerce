@@ -1,7 +1,7 @@
 <div class="row-base" style="display: -webkit-flex">
     <section>
       <ul class="results-base">
-        <p *ngIf="products.length === 0">No se encontraron productos en esta(s) categoria(s)</p>
+        <p *ngIf="products.length == 0">No se encontraron productos en esta(s) categoria(s)</p>
         <li *ngFor="let product of products | filter : selectedCategoryIds; trackBy: trackByFn" class="product-base" [style.margin]="getMargin()" itemscope
           itemtype="https://schema.org/Product">
           <a itemprop="url" [routerLink]="['/product/', product.id]">
