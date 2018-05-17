@@ -72,7 +72,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
         if (data.status !== 200) {
           console.log(errors);
         } else {
-          values.image = data.imageSrc;
+          values.image = data.filePath+data.fileName;
           this.registerSubs = this.userService.create(values).subscribe(data => {
             const errors = data.message;
             if (data.status !== 200) {

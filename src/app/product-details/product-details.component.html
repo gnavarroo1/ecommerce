@@ -1,7 +1,7 @@
 <div itemscope itemtype="https://schema.org/Product" *ngIf="product != null" class="row padding-top">
 
   <div class="image-container">
-    <img itemprop="image" [src]="getProductImageUrl()" onerror="this.src='./assets/image-not-found.png'" class="thumbnails-selected-image"
+    <img itemprop="image" [src]="product.imagen" onerror="this.src='./assets/image-not-found.png'" class="thumbnails-selected-image"
     />
   </div>
   <div class="col-md-6">
