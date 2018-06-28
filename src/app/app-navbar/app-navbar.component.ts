@@ -48,7 +48,7 @@ export class AppNavbarComponent implements OnInit {
 
   selectCategory(category) {
     
-    this.productService.addFilterHeader(category.id);
+    this.productService.addFilterHeader(category._id);
     
     this.productService.getProductsFiltered(this.selectedFilters,"").subscribe(res => {
       

@@ -35,7 +35,7 @@ export class CategoriesComponent implements OnInit {
     this.productService.currentFilters.subscribe(searchFilters => this.selectedFilters = searchFilters);
     this.productService.currentCategories.subscribe(x => this.categories = x);
     this.categories.forEach(category => {
-      if (this.selectedFilters.find(x => x === category.id)) {
+      if (this.selectedFilters.find(x => x === category._id)) {
         category.isChecked = true;
       }
     });
@@ -44,7 +44,7 @@ export class CategoriesComponent implements OnInit {
   isChecked(category) {
     let result = false;
     this.selectedFilters.forEach((filter) => {
-      if (filter.id === category.id) {
+      if (filter._id === category._id) {
         result = true;
       }
     });
@@ -54,12 +54,12 @@ export class CategoriesComponent implements OnInit {
   categorySelected(category, checked) {
     category.isChecked = checked
     if (checked) {
-      this.productService.addFilterSideBar(category.id);
+      this.productService.addFilterSideBar(category._id);
       this.productService.getProductsFiltered(this.selectedFilters,"").subscribe(res => {
         
       });
     } else {
-      this.productService.deleteFilterSideBar(category.id);
+      this.productService.deleteFilterSideBar(category._id);
       if (this.selectedFilters.length !== 0) {
         this.productService.getProductsFiltered(this.selectedFilters,"").subscribe(res => {
           

@@ -4,7 +4,7 @@
         <p *ngIf="products.length == 0">No se encontraron productos en esta(s) categoria(s)</p>
         <li *ngFor="let product of products | filter : selectedCategoryIds; trackBy: trackByFn" class="product-base" [style.margin]="getMargin()" itemscope
           itemtype="https://schema.org/Product">
-          <a itemprop="url" [routerLink]="['/product/', product.id]">
+          <a itemprop="url" [routerLink]="['/product/', product._id]">
             <img itemprop="image"
               class="product-thumb"
               [src]="product.imagen"

@@ -42,7 +42,7 @@
               <div class="register-input-item" style="margin-top: 40px;">
                 <select [(ngModel)]="selectedCategory" id="category" [ngModelOptions]="{standalone: true}" style="width: 50%">
                   <option value="" disabled selected>Seleccionar categoria</option>
-                  <option *ngFor="let item of categories" [value]="item.id">{{item.nombre}}</option>
+                  <option *ngFor="let item of categories" [value]="item._id">{{item.nombre}}</option>
                 </select>
               </div>
               <div class="register-input-item">

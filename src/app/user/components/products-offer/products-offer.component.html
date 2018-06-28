@@ -7,7 +7,7 @@
             <li *ngFor="let product of products" class="product-base" [style.margin]="getMargin()" itemscope
               itemtype="https://schema.org/Product">
               <div class="product-thumbShim"></div>
-              <a itemprop="url" [routerLink]="['/product/', product.id]">
+              <a itemprop="url" [routerLink]="['/product/', product._id]">
                 <img itemprop="image"
                   class="product-thumb"
                   [src]="getProductImageUrl(product.nombre)"

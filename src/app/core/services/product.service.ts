@@ -124,7 +124,7 @@ export class ProductService {
     array.forEach(element => {
       element.isChecked = false;
     });
-    array[array.findIndex(x => x.id === id)].isChecked = true;
+    array[array.findIndex(x => x._id === id)].isChecked = true;
   }
 
   addProduct(data){
